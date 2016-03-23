@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{88188B42-1044-D803-A2BA-C02B1E3C85BF}") = "Grav Danger - Pizza Delivery", "Assembly-CSharp.csproj", "{08C5EA0C-7AAF-8E95-9739-CA0F3CF8BD53}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08C5EA0C-7AAF-8E95-9739-CA0F3CF8BD53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08C5EA0C-7AAF-8E95-9739-CA0F3CF8BD53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08C5EA0C-7AAF-8E95-9739-CA0F3CF8BD53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08C5EA0C-7AAF-8E95-9739-CA0F3CF8BD53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
