@@ -44,8 +44,13 @@ public class PlanetSpawner : MonoBehaviour {
 		newPlanet = (GameObject) (Instantiate (planet, new Vector3 (x, y, 0), new Quaternion ()));
 	}
 
+    /*
+        
+    */
 	void GrowPlanet()
 	{
+        // if planet larger than 20 
+        // start decreasing the planet
 		if(newPlanet.transform.localScale.x >= 20f)
 		{
 			//planetGrowing = false;
