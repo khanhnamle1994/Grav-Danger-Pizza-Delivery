@@ -13,7 +13,7 @@ public class PlanetGravity : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gravityForce = mass * .0000001f;
+		gravityForce = mass * .00001f;
 		/*foreach (Collider collider in Physics.OverlapSphere(gameObject.transform.position, gravityRadius)) {
 			// calculate direction from target to me
 			Vector3 forceDirection = gameObject.transform.position - collider.transform.position;
@@ -23,7 +23,7 @@ public class PlanetGravity : MonoBehaviour {
 		}*/
 	}
 
-	void OnTriggerEnter2D (Collider2D other)
+	void OnTriggerStay2D (Collider2D other)
 	{
 		if(other.gameObject.tag == "Player")
 		{
@@ -33,6 +33,19 @@ public class PlanetGravity : MonoBehaviour {
 			//other.gameObject.GetComponent<Rigidbody2D> ().AddForce (forceDirection.normalized * gravityForce);
 			other.gameObject.GetComponent<PizzaVelocity>().AddForce(gravitate * gravityForce);
 		}
+	}
+
+	void OnCollisionEnter2D (Collision2D other)
+	{
+		if (other.gameObject.tag == "Player")
+		{
+			Destroy (gameObject);
+		}
+	}
+
+	void OnMouseDown ()
+	{
+		Destroy (gameObject);
 	}
 
 	public void IncreaseMass (){
