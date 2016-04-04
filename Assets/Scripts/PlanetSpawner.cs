@@ -5,6 +5,7 @@ public class PlanetSpawner : MonoBehaviour {
 
 	public GameObject planet;
 	public float growthRate;
+    public float decreaseRate;
 	bool planetGrowing;
 	GameObject newPlanet;
 	float cameraSize, aspectRatio;
@@ -27,6 +28,11 @@ public class PlanetSpawner : MonoBehaviour {
 			GrowPlanet ();
 	}
 
+    public void StopGrowing()
+    {
+        planetGrowing = false;
+    }
+
 	void OnMouseDown() {
 		planetGrowing = true;
 		Shoot ();
@@ -41,6 +47,8 @@ public class PlanetSpawner : MonoBehaviour {
 	{
 		float y = 2f * Input.mousePosition.y / Screen.height * cameraSize - cameraSize;
 		float x = 2f * Input.mousePosition.x / Screen.width * cameraSize * aspectRatio - cameraSize * aspectRatio;
+
+        //Camera.main.ScreenToWorldPoint(Input.mousePosition);
 		newPlanet = (GameObject) (Instantiate (planet, new Vector3 (x, y, 0), new Quaternion ()));
 	}
 
@@ -54,13 +62,15 @@ public class PlanetSpawner : MonoBehaviour {
 		if(newPlanet.transform.localScale.x >= 20f)
 		{
 			//planetGrowing = false;
-			increase *= -.5f;
+			increase *= decreaseRate;
 		}
 		newPlanet.transform.localScale += increase;
 		if(newPlanet.transform.localScale.x <= 0)
 		{
+            Debug.Log("attractor dead");
 			planetGrowing = false;
-			Destroy (newPlanet);
+            newPlanet.GetComponent<PlanetGravity>().Explode();
+			//Destroy (newPlanet);
 			increase = new Vector3 (growthRate, growthRate, growthRate);
 		}
 		newPlanet.GetComponent<PlanetGravity> ().IncreaseMass ();
