@@ -19,6 +19,8 @@ public class PlanetSpawner : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
+	// Should the screen resize, the spawner surface will also resize
+	// Planet is growing while mouse is clicked
 	void Update () {
 		aspectRatio = 1f * Screen.width / Screen.height;
 		float height = cameraSize / 5f;
@@ -32,17 +34,20 @@ public class PlanetSpawner : MonoBehaviour {
     {
         planetGrowing = false;
     }
-
+    
+	// Planet is growinf while mouse is clicked
 	void OnMouseDown() {
 		planetGrowing = true;
 		Shoot ();
 	}
 
+	// Planet stops growing once mouse is unpressed
 	void OnMouseUp() {
 		planetGrowing = false;
 		increase = new Vector3 (growthRate, growthRate, growthRate);
 	}
 
+	// Determines 
 	void Shoot()
 	{
 		float y = 2f * Input.mousePosition.y / Screen.height * cameraSize - cameraSize;
