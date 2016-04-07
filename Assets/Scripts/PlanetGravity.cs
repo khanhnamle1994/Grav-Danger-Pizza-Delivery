@@ -6,7 +6,7 @@ public class PlanetGravity : MonoBehaviour {
 	float physicalRadius, gravityRadius;
     public float mass;
 	float gravityForce;
-
+    public float explodeMultiplier;
     Rigidbody2D rb2d;
 
 	// Use this for initialization
@@ -22,7 +22,7 @@ public class PlanetGravity : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		gravityForce = rb2d.mass * .01f;
+		gravityForce = rb2d.mass * .1f;
 		/*foreach (Collider collider in Physics.OverlapSphere(gameObject.transform.position, gravityRadius)) {
 			// calculate direction from target to me
 			Vector3 forceDirection = gameObject.transform.position - collider.transform.position;
@@ -86,7 +86,7 @@ public class PlanetGravity : MonoBehaviour {
         Debug.Log("try explode "+distance);
         if(distance < 1000f)
         {
-            player.GetComponent<PizzaVelocity>().AddForce(-difference * 10f / distance / distance);
+            player.GetComponent<PizzaVelocity>().AddForce(-difference * explodeMultiplier / distance / distance);
             Debug.Log("add force called");
         }
             
