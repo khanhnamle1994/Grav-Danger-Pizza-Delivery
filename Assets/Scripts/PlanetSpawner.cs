@@ -50,12 +50,10 @@ public class PlanetSpawner : MonoBehaviour {
 	// Determines 
 	void Shoot()
 	{
-		float y = 2f * Input.mousePosition.y / Screen.height * cameraSize - cameraSize;
-		float x = 2f * Input.mousePosition.x / Screen.width * cameraSize * aspectRatio - cameraSize * aspectRatio;
-
-        //Camera.main.ScreenToWorldPoint(Input.mousePosition);
-		newPlanet = (GameObject) (Instantiate (planet, new Vector3 (x, y, 0), new Quaternion ()));
-	}
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        pos.z = 0;
+        newPlanet = (GameObject)(Instantiate(planet, pos , new Quaternion()));
+    }
 
     /*
         
