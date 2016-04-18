@@ -1,15 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PizzaInventory : MonoBehaviour {
     Dictionary<string, int> inventory;
 
+	public Text[] inventoryText;
+	public string[] itemNames;
+
     // Use this for initialization
     void Start () {
         inventory = new Dictionary<string, int>();
-        string[] strings = { "pizza" };
-        foreach (string s in strings)
+        foreach (string s in itemNames)
         {
             inventory.Add(s, 0);
         }
@@ -17,16 +20,17 @@ public class PizzaInventory : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void FixedUpdate () {
+		for (int index = 0; index < inventoryText.Length; index++)
+			inventoryText[index].text = itemNames[index] + ": " + inventory [itemNames[index]]; 
 	}
 
-    void Increment(string s)
+    public void Increment(string s)
     {
         inventory[s] += 1;
     }
 
-    void Decrement(string s)
+	public void Decrement(string s)
     {
         inventory[s] -= 1;
     }

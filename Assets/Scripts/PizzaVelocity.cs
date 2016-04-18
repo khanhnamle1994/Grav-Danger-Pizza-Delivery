@@ -22,4 +22,9 @@ public class PizzaVelocity : MonoBehaviour {
 	{
         rg2d.velocity += newForce;
 	}
+
+	public void AddForce2(Vector2 newForce)
+	{
+		rg2d.AddForce(newForce, ForceMode2D.Force);
+	}
 }

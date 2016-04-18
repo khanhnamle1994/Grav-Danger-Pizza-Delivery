@@ -9,9 +9,11 @@ public class PlanetGravity : MonoBehaviour {
     public float explodeMultiplier;
     Rigidbody2D rb2d;
 
+	PizzaVelocity pv;
+
 	// Use this for initialization
 	void Start () {
-        
+		pv = GameObject.FindGameObjectWithTag ("Player").GetComponent<PizzaVelocity>();
 	}
 
     void Awake()
@@ -49,7 +51,8 @@ public class PlanetGravity : MonoBehaviour {
 			//other.gameObject.GetComponent<Rigidbody2D> ().AddForce (forceDirection.normalized * gravityForce);
 
 
-			other.gameObject.GetComponent<PizzaVelocity>().AddForce(gravitate.normalized * gravityForce / distance / distance);
+			//pv.AddForce(gravitate.normalized * gravityForce / distance / distance);
+			pv.AddForce2(gravitate.normalized * gravityForce);
 		}
 	}
 
@@ -59,7 +62,7 @@ public class PlanetGravity : MonoBehaviour {
 		if (other.gameObject.tag == "Player")
 		{
             GameObject.FindObjectOfType<PlanetSpawner>().GetComponent<PlanetSpawner>().StopGrowing();
-
+			Explode ();
 			Destroy (gameObject);
 		}
 	}
@@ -76,18 +79,17 @@ public class PlanetGravity : MonoBehaviour {
 
     public void Explode()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Vector3 difference = gameObject.transform.position - player.transform.position;
+		Vector3 difference = gameObject.transform.position - pv.gameObject.transform.position;
         difference.z = 0;
 
         float distance = difference.magnitude;
 
         //other.gameObject.GetComponent<Rigidbody2D> ().AddForce (forceDirection.normalized * gravityForce);
         Debug.Log("try explode "+distance);
-        if(distance < 1000f)
+        if(distance < 100f)
         {
-            player.GetComponent<PizzaVelocity>().AddForce(-difference * explodeMultiplier / distance / distance);
-            Debug.Log("add force called");
+			pv.AddForce(-difference * mass * explodeMultiplier / distance / distance);
+            //Debug.Log("add force called");
         }
             
     }
