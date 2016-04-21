@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 public class ScrollingScript : MonoBehaviour {
 
@@ -23,9 +24,13 @@ public class ScrollingScript : MonoBehaviour {
 	Rigidbody2D rb2d;
 
 	private List<Transform> backgroundPart;
+	List<Vector2> Dirs;
 
 	// Use this for initialization
 	void Start () {
+
+
+
 		if (isLooping) {
 			// Get all children of the layer with a renderer
 			backgroundPart = new List<Transform> ();
@@ -35,8 +40,14 @@ public class ScrollingScript : MonoBehaviour {
 					backgroundPart.Add (child);
 			}
 		}
-		Debug.Log (backgroundPart);
+		Debug.Log (backgroundPart.Count);
 		rb2d = GameObject.FindGameObjectWithTag ("Player").GetComponent<Rigidbody2D> ();
+
+		for (int k = -1; k <= 1; k++) {
+			for (int j = -1; j <= 1; j++) {
+				Dirs.Add (new Vector2 (k, j));
+			}
+		}
 	}
 	
 	// Update is called once per frame
@@ -52,7 +63,9 @@ public class ScrollingScript : MonoBehaviour {
 		movement *= Time.deltaTime;
 		transform.Translate (movement);
 
-
+		if (isLooping) {
+			Debug.Log (backgroundPart.FirstOrDefault ().GetComponent<Renderer> ().IsVisibileFrom (Camera.main));
+		}
 	}
 }
 
