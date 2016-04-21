@@ -88,7 +88,7 @@ public class PlanetGravity : MonoBehaviour {
         Debug.Log("try explode "+distance);
         if(distance < 100f)
         {
-			pv.AddForce(-difference * mass * explodeMultiplier / distance / distance);
+			//pv.AddForce(-difference * mass * explodeMultiplier / distance / distance);
             //Debug.Log("add force called");
         }
             
