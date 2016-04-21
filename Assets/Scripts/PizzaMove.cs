@@ -18,8 +18,9 @@ public class PizzaMove : MonoBehaviour {
 	}
     void FixedUpdate()
     {
-
         rg2d.MoveRotation(Angle360(Vector2.right, rg2d.velocity));
+		rg2d.velocity = Friction (rg2d.velocity);
+		Debug.Log ("velocity " + rg2d.velocity);
     }
 
     float Angle360(Vector2 from, Vector2 to)
@@ -32,4 +33,14 @@ public class PizzaMove : MonoBehaviour {
         Debug.Log("Angle: " + angle);
         return angle;
     }
+
+	Vector2 Friction(Vector2 velocity)
+	{
+		float magnitude = velocity.magnitude;
+		if (magnitude > 15f)
+			return velocity * 0.9f;
+		else
+			return velocity;
+	}
+
 }
