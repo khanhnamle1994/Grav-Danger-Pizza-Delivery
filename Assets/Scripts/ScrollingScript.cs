@@ -24,12 +24,15 @@ public class ScrollingScript : MonoBehaviour {
 	Rigidbody2D rb2d;
 
 	private List<Transform> backgroundPart;
-	List<Vector2> Dirs;
+	List<Vector2> Dirs = new List<Vector2>();
+
+
+	public Renderer center;
+	public List<Renderer> surrounding;
+	private Hashtable phoneGrid;
 
 	// Use this for initialization
 	void Start () {
-
-
 
 		if (isLooping) {
 			// Get all children of the layer with a renderer
@@ -43,10 +46,20 @@ public class ScrollingScript : MonoBehaviour {
 		Debug.Log (backgroundPart.Count);
 		rb2d = GameObject.FindGameObjectWithTag ("Player").GetComponent<Rigidbody2D> ();
 
+
 		for (int k = -1; k <= 1; k++) {
 			for (int j = -1; j <= 1; j++) {
-				Dirs.Add (new Vector2 (k, j));
+				Dirs.Add (new Vector2 (j, k));
 			}
+		}
+		// (-1,-1),(0,-1),....
+
+		phoneGrid = new Hashtable ();
+		phoneGrid.Add (0, null);
+
+		// assign phoneGrid 1 to 9
+		for (int l = 0; l < Dirs.Count; l++) {
+			phoneGrid.Add (l+1, Dirs [l]);
 		}
 	}
 	
@@ -65,6 +78,14 @@ public class ScrollingScript : MonoBehaviour {
 
 		if (isLooping) {
 			Debug.Log (backgroundPart.FirstOrDefault ().GetComponent<Renderer> ().IsVisibileFrom (Camera.main));
+
+
+
+			// if center no longer visible
+			if (center.IsVisibileFrom (Camera.main) == false) {
+
+				// find backgroundPart where visible
+			}
 		}
 	}
 }
