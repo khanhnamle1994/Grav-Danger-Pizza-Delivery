@@ -20,7 +20,8 @@ public class PizzaVelocity : MonoBehaviour {
 
 	public void AddForce(Vector2 newForce)
 	{
-        rg2d.velocity += newForce;
+		throw new UnityException ("Deprecated method");
+        //rg2d.velocity += newForce;
 	}
 
 	public void AddForce2(Vector2 newForce)

@@ -8,6 +8,7 @@ public class PizzaInventory : MonoBehaviour {
 
 	public Text[] inventoryText;
 	public string[] itemNames;
+	public int [] itemAmounts;
 
     // Use this for initialization
     void Start () {
@@ -16,7 +17,9 @@ public class PizzaInventory : MonoBehaviour {
         {
             inventory.Add(s, 0);
         }
-           
+		for (int i = 0; i < itemAmounts.Length; i++) {
+			inventory [itemNames[i]] = itemAmounts [i];
+		}  
     }
 	
 	// Update is called once per frame
@@ -30,8 +33,23 @@ public class PizzaInventory : MonoBehaviour {
         inventory[s] += 1;
     }
 
+	public void IncrementAmount(string s, int amount)
+	{
+		inventory [s] += amount;
+	}
+
 	public void Decrement(string s)
     {
         inventory[s] -= 1;
     }
+
+	public void DecrementAmount(string s, int amount)
+	{
+		IncrementAmount (s, -amount);
+	}
+
+	public void SetAmount(string s, int amount)
+	{
+		inventory [s] = amount;
+	}
 }
