@@ -72,10 +72,10 @@ public class PlanetSpawner : MonoBehaviour {
 		{
             Debug.Log("attractor dead");
 			planetGrowing = false;
-            newPlanet.GetComponent<PlanetGravity>().Explode();
+            newPlanet.GetComponent<Attractor>().Explode();
 			//Destroy (newPlanet);
 			increase = new Vector3 (growthRate, growthRate, growthRate);
 		}
-		newPlanet.GetComponent<PlanetGravity> ().IncreaseMass ();
+		newPlanet.GetComponent<Attractor> ().IncreaseMass ();
 	}
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlanetGravity : MonoBehaviour {
+public class Attractor : MonoBehaviour {
 
 	float physicalRadius, gravityRadius;
     public float mass;
