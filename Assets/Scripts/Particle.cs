@@ -42,7 +42,7 @@ public abstract class Particle : MonoBehaviour {
 
 
 			//pv.AddForce(gravitate.normalized * gravityForce / distance / distance);
-			pv.AddForce2(gravitate.normalized * gravityForce);
+			//pv.AddForce2(gravitate.normalized * gravityForce);
 
 			//Affect();
 		}
