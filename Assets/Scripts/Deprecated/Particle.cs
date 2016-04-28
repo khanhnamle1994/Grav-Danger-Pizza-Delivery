@@ -53,7 +53,7 @@ public abstract class Particle : MonoBehaviour {
 		Debug.Log(other.gameObject.name);
 		if (other.gameObject.tag == "Player")
 		{
-			GameObject.FindObjectOfType<PlanetSpawner>().GetComponent<PlanetSpawner>().StopGrowing();
+			GameObject.FindObjectOfType<ParticleSpawner>().GetComponent<ParticleSpawner>().StopGrowing();
 			//Explode ();
 			Destroy (gameObject);
 		}

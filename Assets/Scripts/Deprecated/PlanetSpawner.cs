@@ -16,6 +16,7 @@ public class PlanetSpawner : MonoBehaviour {
 		growthRate = .1f;
 		increase = new Vector3 (growthRate, growthRate, growthRate);
 		cameraSize = Camera.main.orthographicSize;
+        throw new System.Exception("depcreated should use particle spawner instead");
 	}
 	
 	// Update is called once per frame

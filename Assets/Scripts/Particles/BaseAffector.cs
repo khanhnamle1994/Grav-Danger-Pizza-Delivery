@@ -1,19 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaseAffector : MonoBehaviour
+public abstract class BaseAffector : MonoBehaviour
 {
 
-    float physicalRadius, gravityRadius;
-    public float mass;
-    protected bool isAwayCenterForce;
-    //float gravityForce; // deprecated not used
-    /// </summary>
-    public float explodeMultiplier;
-    public bool explodeOnCollide;
-    Rigidbody2D rb2d;
-
-    PizzaVelocity pv;
+    protected float physicalRadius { get; set; }
+    public float gravityRadius { get; set; } // rename to effectiveRadius
+    public float initial_mass { get; set; }
+    
+    public float explodeMultiplier { get; set; }
+    public bool explodeOnCollide { get; set; }
+    protected Rigidbody2D rb2d;
+    protected PizzaVelocity pv;
 
     // Use this for initialization
     void Start()
@@ -24,7 +22,7 @@ public class BaseAffector : MonoBehaviour
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        rb2d.mass = mass;
+        rb2d.mass = initial_mass;
     }
 
     // Update is called once per frame
@@ -46,31 +44,14 @@ public class BaseAffector : MonoBehaviour
         }
     }
 
-    void AffectObject(GameObject other)
-    {
-        Vector3 gravitate3D = gameObject.transform.position - other.transform.position;
-
-
-        // vector from player position to the planet position
-        Vector2 gravitate = new Vector2(gravitate3D.x, gravitate3D.y);
-
-        float distance = gravitate.magnitude;
-
-        float gravityForce = rb2d.mass * .1f;
-        float force;
-        if (isAwayCenterForce)
-            force = gravityForce * -1;
-        else
-            force = gravityForce;
-        pv.AddForce2(gravitate.normalized * force);
-    }
+    protected abstract void AffectObject(GameObject other);
 
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log(other.gameObject.name);
         if (other.gameObject.tag == "Player")
         {
-            GameObject.FindObjectOfType<PlanetSpawner>().GetComponent<PlanetSpawner>().StopGrowing();
+            GameObject.FindObjectOfType<ParticleSpawner>().GetComponent<ParticleSpawner>().StopGrowing();
             if (explodeOnCollide)
                 Explode();
             Destroy(gameObject);
@@ -85,9 +66,21 @@ public class BaseAffector : MonoBehaviour
     public void IncreaseMass()
     {
         rb2d.mass += .1f;
-        //Debug.Log (mass);
     }
 
+    public void DecreaseMass()
+    {
+        rb2d.mass -= .3f;
+    }
+
+    // Explode only if explodeOnCollide is true
+    public void TryExplode()
+    {
+        if (explodeOnCollide)
+            Explode();
+    }
+
+    // Guaranteened to explode
     public void Explode()
     {
         Vector3 difference = gameObject.transform.position - pv.gameObject.transform.position;
@@ -95,10 +88,9 @@ public class BaseAffector : MonoBehaviour
 
         float distance = difference.magnitude;
 
-        Debug.Log("try explode " + distance);
         if (distance < 100f)
         {
-            pv.AddForce2(-difference * mass * explodeMultiplier / distance / distance);
+            pv.AddForce(-difference * rb2d.mass * explodeMultiplier / distance / distance);
         }
 
     }
