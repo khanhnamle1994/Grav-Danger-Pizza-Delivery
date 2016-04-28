@@ -29,7 +29,8 @@ public class ScrollingScript : MonoBehaviour {
 
 
 	public Renderer center;
-	private List <GameObject> backgroundClones;
+	private List <GameObject> backgroundClones; // not used right now
+    private List<GameObject> clones = new List<GameObject>();
 
 	public List<Renderer> surrounding; // not used right now
 	private Hashtable phoneGrid; // not used right now
@@ -89,19 +90,25 @@ public class ScrollingScript : MonoBehaviour {
 
 
 		List<string> dirsArray = new List<string>{"SW","SC","SE","CW","CE","NW","NC","NE"};
+        //List<Transform> clones;
 		foreach(string dir in dirsArray)
 		{
-			GameObject clone = CreateBackgroundClone(center.gameObject,new Position(dir));
+            Position pos = new Position(dir);
+			GameObject clone = CreateBackgroundClone(center.gameObject,pos);
 			clone.transform.parent = gameObject.transform;
-		}
+            BackgroundTile bt = clone.AddComponent<BackgroundTile>();
+            bt.SetPos(pos);
+            clones.Add(clone);
+        }
+        Debug.Log(clones[0].ToString());
 
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
-
-		// move in direction of the camera
-		direction = rb2d.velocity.normalized;
+        // move in direction of the camera
+        direction = rb2d.velocity.normalized;
 
 		Vector3 movement = new Vector3 (
 			                   speed.x * direction.x,
@@ -109,6 +116,8 @@ public class ScrollingScript : MonoBehaviour {
 			                   0);
 		movement *= Time.deltaTime;
 		transform.Translate (movement);
+
+        
 
 		if (isLooping) {
 			Debug.Log (backgroundPart.FirstOrDefault ().GetComponent<Renderer> ().IsVisibileFrom (Camera.main));
@@ -118,10 +127,27 @@ public class ScrollingScript : MonoBehaviour {
 			// if center no longer visible
 			if (center.IsVisibileFrom (Camera.main) == false) {
 
-				// find backgroundPart where visible
-			}
+                // find backgroundPart where visible
+                foreach (GameObject go in clones)
+                {
+                    if(go.GetComponent<Renderer>().IsVisibileFrom(Camera.main ))
+                    {
+                        ReAllocateCenter(go);
+                        break;
+                    }
+                }
+            }
 		}
 	}
+
+    void ReAllocateCenter(GameObject new_center)
+    {
+        Position new_center_pos = new_center.GetComponent<BackgroundTile>().GetPos();
+        
+
+
+    }
+
 
 	GameObject CreateBackgroundClone(GameObject original, Position p)
 	{
@@ -144,7 +170,7 @@ public class ScrollingScript : MonoBehaviour {
 }
 
 
-class Position {
+public class Position {
 
 	string vertical;
 	string horizontal;

@@ -37,7 +37,7 @@ public class PizzaMove : MonoBehaviour {
 	Vector2 Friction(Vector2 velocity)
 	{
 		float magnitude = velocity.magnitude;
-		Debug.Log ("speed " + magnitude);
+		//Debug.Log ("speed " + magnitude);
 		if (magnitude < 15f)
 			return Vector2.zero;
 		else if (magnitude < 40f)
