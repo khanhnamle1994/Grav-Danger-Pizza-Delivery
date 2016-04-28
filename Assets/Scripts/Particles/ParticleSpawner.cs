@@ -16,7 +16,7 @@ public class ParticleSpawner : MonoBehaviour {
     void Start()
     {
         growthRate = .1f;
-        increase = new Vector3(growthRate, growthRate, growthRate);
+        //increase = new Vector3(growthRate, growthRate, growthRate);
         cameraSize = Camera.main.orthographicSize;
     }
 
@@ -126,19 +126,21 @@ public class ParticleSpawner : MonoBehaviour {
     {
         float limit = 20f;
 
+        BaseAffector baseParticle = particle.GetComponent<BaseAffector>();
+
         // if planet larger than limit
         // start decreasing the planet
         if (particle.transform.localScale.x >= limit)
         {
-            //increase *= decreaseRate;
+            baseParticle.DecreaseSize(decreaseRate);
         }
-        particle.transform.localScale += increase;
         if (particle.transform.localScale.x <= 0)
         {
             particleGrowing = false;
             particle.GetComponent<BaseAffector>().TryExplode();
-            //increase = new Vector3(growthRate, growthRate, growthRate);
+            
         }
-        particle.GetComponent<BaseAffector>().IncreaseMass();
+        baseParticle.IncreaseSize(growthRate);
+        baseParticle.IncreaseMass();
     }
 }

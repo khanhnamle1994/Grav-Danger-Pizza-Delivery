@@ -73,6 +73,18 @@ public abstract class BaseAffector : MonoBehaviour
         rb2d.mass -= .3f;
     }
 
+    public void IncreaseSize(float f)
+    {
+        transform.localScale += new Vector3(f,f,f);
+    }
+
+    public void DecreaseSize(float f)
+    {
+        IncreaseSize(-f);
+    }
+
+
+
     // Explode only if explodeOnCollide is true
     public void TryExplode()
     {
@@ -94,4 +106,5 @@ public abstract class BaseAffector : MonoBehaviour
         }
 
     }
+
 }
