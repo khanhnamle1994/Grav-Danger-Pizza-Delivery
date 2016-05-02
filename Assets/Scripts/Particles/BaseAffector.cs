@@ -5,11 +5,14 @@ public abstract class BaseAffector : MonoBehaviour
 {
 
     //protected float physicalRadius { get; set; }
-    public float gravityRadius { get; set; } // rename to effectiveRadius
-    public float initial_mass { get; set; }
-    
-    public float explodeMultiplier { get; set; }
-    public bool explodeOnCollide { get; set; }
+    [SerializeField]
+    private float gravityRadius; // rename to effectiveRadius
+
+    [SerializeField]
+    private float initial_mass;
+
+    public float explodeMultiplier;
+    public bool explodeOnCollide;
     protected Rigidbody2D rb2d;
     protected PizzaVelocity pv;
 
@@ -17,6 +20,7 @@ public abstract class BaseAffector : MonoBehaviour
     void Start()
     {
         pv = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaVelocity>();
+        DelayedDestroySelf();
     }
 
     void Awake()
@@ -105,6 +109,18 @@ public abstract class BaseAffector : MonoBehaviour
             pv.AddForce(-difference * rb2d.mass * explodeMultiplier / distance / distance);
         }
 
+    }
+
+
+    public void DelayedDestroySelf()
+    {
+        StartCoroutine("DestroySelf");
+    }
+
+    IEnumerator DestroySelf()
+    {
+        yield return new WaitForSeconds(60);
+        DestroyObject(gameObject);
     }
 
 }

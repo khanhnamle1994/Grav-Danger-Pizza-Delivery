@@ -3,6 +3,7 @@ using System.Collections;
 
 public abstract class Gravitor : BaseAffector {
 
+    
     protected abstract bool isAwayCenterForce { get; }
 
 

@@ -20,7 +20,7 @@ public class ScrollingScript : MonoBehaviour {
 	/// <summary>
 	/// if Background is Inifinite
 	/// </summary>
-	public bool isLooping = false;
+	public bool isLooping = true;
 
 	Rigidbody2D rb2d;
 
@@ -48,6 +48,7 @@ public class ScrollingScript : MonoBehaviour {
 	private float height;
 
     private bool isReAllocatingCenter;
+    private float lastTimePlayerInCenter;
 
 	// Use this for initialization
 	void Start () {
@@ -89,6 +90,8 @@ public class ScrollingScript : MonoBehaviour {
         BackgroundTile center_bt = center.gameObject.AddComponent<BackgroundTile>();
         center_bt.Pos = new Position("CC");
 
+        lastTimePlayerInCenter = 0f;
+
     }
 	
 	// Update is called once per frame
@@ -102,15 +105,34 @@ public class ScrollingScript : MonoBehaviour {
 			                   0);
 		movement *= Time.deltaTime;
 		transform.Translate (movement);
-
         
 
 		if (isLooping) {
-			// if center no longer visible by camera and is not currently reallocating the center
-			if (center.IsVisibileFrom (Camera.main) == false && isReAllocatingCenter == false) {
+            // if center no longer visible by camera and is not currently reallocating the center
+            if (center.IsVisibileFrom(Camera.main) == false )//&& isReAllocatingCenter == false)
+            {
                 isReAllocatingCenter = true;
+
                 // find backgroundPart where visible
                 GameObject new_center = null;
+                
+                
+                // if longer than 4 seconds not in center, force reallocate center
+                if (lastTimePlayerInCenter>4f)
+                {
+                    foreach (GameObject go in clones)
+                    {
+                        Vector3 camera_pos = Camera.main.transform.position;
+                        camera_pos.z = center.bounds.center.z;
+                        if (go.GetComponent<Renderer>().bounds.Contains(camera_pos))
+                        {
+                            Debug.Log("player in " + go.GetComponent<BackgroundTile>().posVisible);
+                            new_center = go;
+                            ReAllocateCenter(new_center);
+                        }
+                    }
+                }
+
                 int count = 0;
                 foreach (GameObject go in clones)
                 {
@@ -120,11 +142,14 @@ public class ScrollingScript : MonoBehaviour {
                         count++;
                     }
                 }
-                if (count ==1)
+                if (count == 1)
                     ReAllocateCenter(new_center);
+                lastTimePlayerInCenter += Time.deltaTime;
                 isReAllocatingCenter = false;
             }
-		}
+            else
+                lastTimePlayerInCenter = 0f;
+        }
 	}
 
     void ReAllocateCenter(GameObject new_center)
