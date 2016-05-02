@@ -4,8 +4,8 @@ using UnityEngine.UI;
 
 public class ScaleText : MonoBehaviour {
 
-	public int textSize;
-	public int boxWidth, boxHeight;
+	public int textSetSize;
+	int textSize, boxWidth, boxHeight;
 
 	// Use this for initialization
 	void Start () {
@@ -14,7 +14,7 @@ public class ScaleText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		textSize = (int) (Screen.height * .05);
+		textSize = (int) (Screen.height / 400f * textSetSize);
 		boxWidth = (int) (Screen.height * .95);
 		boxHeight = (int) (Screen.width * .95);
 		gameObject.GetComponent<Text> ().fontSize = textSize;
