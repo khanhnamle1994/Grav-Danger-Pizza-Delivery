@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PizzaInventory : MonoBehaviour {
     Dictionary<string, int> inventory;
 
-	public Text[] inventoryText;
+	public Text inventoryText;
 	public string[] itemNames;
 	public int [] itemAmounts;
 
@@ -19,23 +19,32 @@ public class PizzaInventory : MonoBehaviour {
         }
 		for (int i = 0; i < itemAmounts.Length; i++) {
 			inventory [itemNames[i]] = itemAmounts [i];
-		}  
+		}
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		for (int index = 0; index < inventoryText.Length; index++)
-			inventoryText[index].text = itemNames[index] + ": " + inventory [itemNames[index]]; 
+		inventoryText.text = "INVENTORY";
+		for (int index = 0; index < itemNames.Length; index++)
+			inventoryText.text += "\n" + itemNames[index] + ": " + inventory [itemNames[index]]; 
 	}
 
     public void Increment(string s)
     {
-        inventory[s] += 1;
+		IncrementAmount (s, 1);
     }
 
 	public void IncrementAmount(string s, int amount)
 	{
-		inventory [s] += amount;
+		try {
+			inventory[s] += amount;
+		}
+		catch (KeyNotFoundException e)
+		{
+			System.Array.Resize(ref itemNames, itemNames.Length + 1);
+			itemNames [itemNames.Length - 1] = s;
+			inventory.Add(s, amount);
+		}
 	}
 
 	public void Decrement(string s)
