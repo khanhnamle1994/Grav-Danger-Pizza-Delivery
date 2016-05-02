@@ -4,7 +4,7 @@ using System.Collections;
 public abstract class BaseAffector : MonoBehaviour
 {
 
-    protected float physicalRadius { get; set; }
+    //protected float physicalRadius { get; set; }
     public float gravityRadius { get; set; } // rename to effectiveRadius
     public float initial_mass { get; set; }
     
