@@ -82,12 +82,12 @@ public class ScrollingScript : MonoBehaviour {
 			GameObject clone = CreateBackgroundClone(center.gameObject,pos);
 			clone.transform.parent = gameObject.transform;
             BackgroundTile bt = clone.AddComponent<BackgroundTile>();
-            bt.pos = pos;
+            bt.Pos = pos;
             clones.Add(clone);
         }
 
         BackgroundTile center_bt = center.gameObject.AddComponent<BackgroundTile>();
-        center_bt.pos = new Position("CC");
+        center_bt.Pos = new Position("CC");
 
     }
 	
@@ -129,7 +129,8 @@ public class ScrollingScript : MonoBehaviour {
 
     void ReAllocateCenter(GameObject new_center)
     {
-        Position new_center_pos = new_center.GetComponent<BackgroundTile>().pos;
+        BackgroundTile center_bt = new_center.GetComponent<BackgroundTile>();
+        Position new_center_pos = center_bt.Pos;
 
         Renderer old_center = center;
         center = new_center.GetComponent<Renderer>();
@@ -141,20 +142,26 @@ public class ScrollingScript : MonoBehaviour {
         {
             Debug.Log("===========");
             BackgroundTile bt = clone.GetComponent<BackgroundTile>();
-            if (bt.pos.ShouldMove(new_center_pos))
+            if (bt.Pos.ShouldMove(new_center_pos))
             {
                 // Modify clone position to oppoiste
-                Position pos = bt.pos;
+                Debug.Log("old position " + bt.Pos.ToString());
+                Position pos = bt.Pos;
                 pos.ShiftOpposite();
+                bt.Pos = pos;
                 TeleportTo(clone, pos);
+                Debug.Log("new position " + bt.Pos.ToString());
                 //Destroy(clone);
             }
             else
             {
                 // just modifiy position kept if tile not moved
                 // can just mmodifiy the reference, don't need to use SetPos
-                bt.pos.ShiftString( Position.OppositeDir( new_center_pos.GetDir()));
-
+                Debug.Log("old position "+bt.Pos.ToString());
+                Position pos = bt.Pos;
+                pos.ShiftString( Position.OppositeDir( new_center_pos.GetDir()));
+                bt.Pos = pos;
+                Debug.Log("new position " + bt.Pos.ToString());
             }
             
         }
@@ -162,8 +169,9 @@ public class ScrollingScript : MonoBehaviour {
 
         // center tile never moved just position reallocated
         //BackgroundTile old_center_bt = old_center.gameObject.GetComponent<BackgroundTile>();
-        //old_center_bt.pos.ShiftString(Position.OppositeDir(new_center_pos.GetDir()));
+        //old_center_bt.Pos.ShiftString(Position.OppositeDir(new_center_pos.GetDir()));
 
+        center_bt.Pos = new Position("CC");
 
     }
 
@@ -176,7 +184,8 @@ public class ScrollingScript : MonoBehaviour {
 	}
 
 	void TeleportTo(GameObject go, Position p){
-		go.transform.position = FetchNewCenter (p);
+        Vector2 new_center = FetchNewCenter(p);
+		go.transform.position = new Vector3(new_center.x,new_center.y,1);
 	}
 
 	Vector2 FetchNewCenter(Position p){
