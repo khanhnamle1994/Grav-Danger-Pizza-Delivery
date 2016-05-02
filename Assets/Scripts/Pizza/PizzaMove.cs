@@ -20,7 +20,8 @@ public class PizzaMove : MonoBehaviour {
 	}
     void FixedUpdate()
     {
-        rg2d.MoveRotation(Angle360(Vector2.right, rg2d.velocity));
+        if ( rg2d.velocity.magnitude > 0.5f)
+            rg2d.MoveRotation(Angle360(Vector2.right, rg2d.velocity));
 		rg2d.AddForce (Friction (rg2d.velocity));
 	}
 
@@ -37,17 +38,18 @@ public class PizzaMove : MonoBehaviour {
 	Vector2 Friction(Vector2 velocity)
 	{
 		float magnitude = velocity.magnitude;
-		//Debug.Log ("speed " + magnitude);
-		if (magnitude < 15f)
-			return Vector2.zero;
-		else if (magnitude < 40f)
-			return -velocity * 0.05f;
-		else if (magnitude < 70f)
-			return -velocity * 0.2f;
-		else if (magnitude < 200f)
-			return -velocity * 0.5f;
-		else
-			throw new UnityException ("moving too fast above 200f");
+        //Debug.Log ("speed " + magnitude);
+        if (magnitude < 15f)
+            return Vector2.zero;
+        else if (magnitude < 40f)
+            return -velocity * 0.05f;
+        else if (magnitude < 70f)
+            return -velocity * 0.2f;
+        else if (magnitude < 200f)
+            return -velocity * 0.5f;
+        else
+            return -velocity * 0.99f;
+        //throw new UnityException ("moving too fast above 200f");
 	}
 
 	// Handle Player hitting objects with Colliders

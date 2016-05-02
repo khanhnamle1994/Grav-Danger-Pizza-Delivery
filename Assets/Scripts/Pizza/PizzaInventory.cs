@@ -10,6 +10,8 @@ public class PizzaInventory : MonoBehaviour {
 	public string[] itemNames;
 	public int [] itemAmounts;
 
+    public string healthItem = "Pizza";
+
     // Use this for initialization
     void Start () {
         inventory = new Dictionary<string, int>();
@@ -21,9 +23,22 @@ public class PizzaInventory : MonoBehaviour {
 			inventory [itemNames[i]] = itemAmounts [i];
 		}
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (inventory[healthItem]<0)
+        {
+            GetComponent<PizzaReset>().ResetLevel();
+        }
+    }
+
+
+
+
+    void FixedUpdate () {
 		inventoryText.text = "INVENTORY";
 		for (int index = 0; index < itemNames.Length; index++)
 			inventoryText.text += "\n" + itemNames[index] + ": " + inventory [itemNames[index]]; 
