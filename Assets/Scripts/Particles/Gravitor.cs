@@ -20,6 +20,11 @@ public abstract class Gravitor : BaseAffector {
         {
             AffectObject(other.gameObject);
         }
+
+		if (other.gameObject.tag == "Enemy" && isAffectAsteroid)
+		{
+			AffectObject(other.gameObject);
+		}
     }
 
     protected override void AffectObject(GameObject other)
