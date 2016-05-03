@@ -19,7 +19,7 @@ public class AudioTrack : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audio = GetComponent<AudioSource> ();
-        if (audio.clip.length == 0)
+        if (clips.Length == 0)
             throw new UnityException("Zero audio clips found");
         audio.clip = clips[0];
         currentClipIndex = 0;
