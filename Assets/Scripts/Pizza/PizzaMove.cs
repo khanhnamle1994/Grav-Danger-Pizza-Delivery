@@ -56,10 +56,9 @@ public class PizzaMove : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D other)
 	{
 		if (other.gameObject.tag == "Asteroid") {
-			pi.Decrement ("Pizza");
 			//FlipVelocity ();
-			SlowInstantly (0.8f);
-			Destroy (other.gameObject);
+			//SlowInstantly (0.8f);
+			//Destroy (other.gameObject);
 		}
 	}
 

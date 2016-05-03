@@ -11,10 +11,12 @@ public class PizzaInventory : MonoBehaviour {
 	public int [] itemAmounts;
 
     public string healthItem = "Pizza";
+    public int startingHealthAmount = 15;
 
     // Use this for initialization
     void Start () {
         inventory = new Dictionary<string, int>();
+        inventory.Add(healthItem, startingHealthAmount);
         foreach (string s in itemNames)
         {
             inventory.Add(s, 0);
@@ -39,9 +41,11 @@ public class PizzaInventory : MonoBehaviour {
 
 
     void FixedUpdate () {
-		inventoryText.text = "INVENTORY";
+		string text = "INVENTORY";
+        text += "\n" + healthItem + ": " + inventory[healthItem];
 		for (int index = 0; index < itemNames.Length; index++)
-			inventoryText.text += "\n" + itemNames[index] + ": " + inventory [itemNames[index]]; 
+			text += "\n" + itemNames[index] + ": " + inventory [itemNames[index]];
+        inventoryText.text = text;
 	}
 
     public void Increment(string s)
@@ -71,6 +75,16 @@ public class PizzaInventory : MonoBehaviour {
 	{
 		IncrementAmount (s, -amount);
 	}
+
+    public void DecreaseHealth()
+    {
+        Decrement(healthItem);
+    }
+
+    public void DecreaseHealthAmount(int amount)
+    {
+        DecrementAmount(healthItem, amount);
+    }
 
 	public void SetAmount(string s, int amount)
 	{

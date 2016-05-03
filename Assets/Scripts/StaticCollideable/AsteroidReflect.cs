@@ -14,5 +14,16 @@ public class AsteroidReflect : MonoBehaviour {
 	}
 
 
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            Rigidbody2D rb2d = other.GetComponent<Rigidbody2D>();
+            rb2d.velocity = rb2d.velocity * -0.5f;
+            other.GetComponent<PizzaInventory>().DecreaseHealth();
+        }
+    }
+
+
 
 }
