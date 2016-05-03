@@ -90,4 +90,9 @@ public class PizzaInventory : MonoBehaviour {
 	{
 		inventory [s] = amount;
 	}
+
+    public int GetItemAmount(string s)
+    {
+        return inventory[s];
+    }
 }
