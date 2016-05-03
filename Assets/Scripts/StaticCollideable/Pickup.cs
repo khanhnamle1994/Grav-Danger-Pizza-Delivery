@@ -20,7 +20,7 @@ public class Pickup : MonoBehaviour {
 	{
 		if (other.tag == "Player")
 		{
-			other.GetComponent<PizzaInventory> ().Increment (itemName);
+			other.GetComponent<PizzaInventory> ().IncrementAmount (itemName, amount);
 			Destroy (gameObject);
 		}
 	}

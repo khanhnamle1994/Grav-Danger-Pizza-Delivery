@@ -55,17 +55,17 @@ public abstract class BaseAffector : MonoBehaviour
         Debug.Log(other.gameObject.name);
         if (other.gameObject.tag == "Player")
         {
-            GameObject.FindObjectOfType<ParticleSpawner>().GetComponent<ParticleSpawner>().StopGrowing();
+            FindObjectOfType<ParticleSpawner>().GetComponent<ParticleSpawner>().StopGrowing();
             if (explodeOnCollide)
                 Explode();
             Destroy(gameObject);
         }
     }
 
-    void OnMouseDown()
-    {
-        Destroy(gameObject);
-    }
+    //void OnMouseDown()
+    //{
+    //    Destroy(gameObject);
+    //}
 
     public void IncreaseMass()
     {

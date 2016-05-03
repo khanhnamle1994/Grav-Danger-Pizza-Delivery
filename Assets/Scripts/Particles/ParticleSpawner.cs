@@ -7,6 +7,7 @@ public class ParticleSpawner : MonoBehaviour {
     public List<GameObject> particles;
     public float growthRate;
     public float decreaseRate;
+    public float eraserRadius = 2f;
     bool particleGrowing;
     GameObject currentParticle;
     float cameraSize, aspectRatio;
@@ -36,8 +37,22 @@ public class ParticleSpawner : MonoBehaviour {
             if (Input.GetMouseButtonDown(0))
             {
                 Vector3 pos = ClickLocation();
-                currentParticle = CreateParticleCloneAt(particles[0], pos);
-                StartGrowing();
+                Collider2D[] colls = Physics2D.OverlapCircleAll(pos,eraserRadius);
+                bool foundParticle = false;
+                foreach (Collider2D col in colls)
+                {
+                    if(col.gameObject.tag=="Particle")
+                    {
+                        Destroy(col.gameObject);
+                        foundParticle = true;
+                    }
+                }
+
+                if(!foundParticle)
+                {
+                    currentParticle = CreateParticleCloneAt(particles[0], pos);
+                    StartGrowing();
+                }
             }
 
             if (Input.GetMouseButtonUp(0))

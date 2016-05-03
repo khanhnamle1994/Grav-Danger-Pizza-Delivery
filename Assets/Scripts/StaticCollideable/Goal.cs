@@ -11,6 +11,11 @@ public class Goal : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (winText==null)
+        {
+            GameObject go = GameObject.Find("WinText");
+            winText = go.GetComponent<Text>();
+        }
 		winText.text = "";
 	}
 	
