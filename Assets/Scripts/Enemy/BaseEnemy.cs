@@ -19,13 +19,36 @@ public abstract class BaseEnemy : MonoBehaviour {
     {
         if (other.tag == "Player")
         {
-
+            NearPlayerEnemyAI(other.gameObject);
         }
     }
 
-    void MoveTowards(Vector2 dest)
+    protected abstract void NearPlayerEnemyAI(GameObject other);
+
+    void OnTriggerExit2D(Collider2D other)
     {
-        Vector2 towardsDest = Vector2Minus(rb2d.position,dest);
+        if (other.tag == "Player")
+        {
+            FarPlayerEnemyAI(other.gameObject);
+        }
+    }
+
+    protected abstract void FarPlayerEnemyAI(GameObject other);
+
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if(col.gameObject.tag=="Player")
+        {
+            col.gameObject.GetComponent<PizzaInventory>().DecreaseHealth();
+        }
+    }
+
+    
+
+    protected void MoveTowards(Vector2 dest)
+    {
+        Vector2 towardsDest = Vector2Minus(rb2d.position,dest) * 0.7f;
         rb2d.AddForce(towardsDest);
     }
 
@@ -34,7 +57,7 @@ public abstract class BaseEnemy : MonoBehaviour {
         return end - beg;
     }
 
-    void Stop()
+    protected void Stop()
     {
         rb2d.velocity = Vector2.zero;
     }

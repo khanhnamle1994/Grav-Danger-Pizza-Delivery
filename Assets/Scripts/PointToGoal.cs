@@ -18,14 +18,9 @@ public class PointToGoal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		direction = goal.transform.position - player.transform.position;
-		Debug.DrawRay (player.transform.position, direction);
-
-		float angle = Vector2.Angle(goal.transform.position, player.transform.position);
-		Vector3 cross = Vector3.Cross(goal.transform.position, player.transform.position);
-		if (cross.z < 0)
-			angle = 360 - angle;
-
-		gameObject.transform.eulerAngles = new Vector3(0, 0, angle);
-	}
+        Vector3 dir = goal.transform.position - player.transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime*5f);
+    }
 }
