@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AudioTrack : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class AudioTrack : MonoBehaviour {
 
     public bool willPlayOnStart=true;
     public bool autoPlayNext = false;
+    public List<int> autoPlayClipsIndex;
 
     private int currentClipIndex;
 
@@ -41,7 +43,7 @@ public class AudioTrack : MonoBehaviour {
             }
                
             // if shouldPlayNext true..
-            else if(shouldPlayNext || autoPlayNext)
+            else if(shouldPlayNext || autoPlayNext || CheckAlreadySetToPlay(currentClipIndex+1))
             {
                 // if reached end, stop auto play
                 if (currentClipIndex == (clips.Length - 1))
@@ -97,5 +99,11 @@ public class AudioTrack : MonoBehaviour {
     {
         if (clipIndex < 0 || clipIndex >= clips.Length)
             throw new UnityException("ClipIndex passed in out of range");
+    }
+
+    private bool CheckAlreadySetToPlay(int clipIndex)
+    {
+        System.Predicate<int> clipIntFinder = (int i) => { return i == clipIndex; };
+        return autoPlayClipsIndex.Exists(clipIntFinder);
     }
 }
