@@ -8,6 +8,7 @@ public class TutorialAudioQueues : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		audio = GetComponent<AudioTrack> ();
+		audio.PlayNextWhenReady ();
 		StartCoroutine (playNext());
 	}
 	
@@ -16,7 +17,6 @@ public class TutorialAudioQueues : MonoBehaviour {
 	}
 
 	IEnumerator playNext() {
-		audio.PlayNextWhenReady (); //left click to create blue particle
 		yield return new WaitUntil(()=> { return Input.GetMouseButtonDown(0); }); //wait until left click
 		audio.PlayNextWhenReady();
 		audio.PlayNextWhenReady ();
