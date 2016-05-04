@@ -11,7 +11,8 @@ public abstract class Gravitor : BaseAffector {
     protected override void AffectObject(GameObject other)
     {
         Vector2 directionVector = OtherToParticleVector2(other);
-        float gravityForce = rb2d.mass * .1f * forceMultiplier;
+        float otherMass = other.GetComponent<Rigidbody2D>().mass;
+        float gravityForce = rb2d.mass * otherMass* .1f * forceMultiplier;
         float force;
         if (isAwayCenterForce)
             force = gravityForce * -1;
