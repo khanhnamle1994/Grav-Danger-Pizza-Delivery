@@ -58,7 +58,14 @@ public class AudioTrack : MonoBehaviour {
             }
 
         }
+
+
+        if (Input.GetKeyDown(KeyCode.P))
+            ForceStop();
+
 	}
+
+
     
     public void PlayNextWhenReady()
     {
@@ -105,5 +112,10 @@ public class AudioTrack : MonoBehaviour {
     {
         System.Predicate<int> clipIntFinder = (int i) => { return i == clipIndex; };
         return autoPlayClipsIndex.Exists(clipIntFinder);
+    }
+
+    private void ForceStop()
+    {
+        audio.Stop();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AsteriodCollide : MonoBehaviour {
+public class AsteriodCollideDeprecated : MonoBehaviour {
    
 
    void OnTriggerEnter2D (Collider2D other)
