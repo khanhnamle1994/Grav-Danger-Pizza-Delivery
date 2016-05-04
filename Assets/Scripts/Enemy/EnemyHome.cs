@@ -27,6 +27,12 @@ public class EnemyHome : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D (Collider2D other) {
-		home = gameObject;
+		if (other.gameObject.tag == "Player")
+		{
+			if (enemy.GetComponent<EnemyBody> ().home != null) {
+				home = enemy.GetComponent<EnemyBody> ().home;
+			} else
+				home = gameObject;
+		}
 	}
 }
