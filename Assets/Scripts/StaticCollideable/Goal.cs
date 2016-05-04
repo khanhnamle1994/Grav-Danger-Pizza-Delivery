@@ -8,6 +8,7 @@ public class Goal : MonoBehaviour {
 	public Text winText;
 	public string whatToSay;
     public string sceneName="";
+	public AudioClip[] yays;
 
 	// Use this for initialization
 	void Start () {
@@ -29,8 +30,16 @@ public class Goal : MonoBehaviour {
 		if(other.tag == "Player")
 		{
 			winText.text = whatToSay;
+			PlayYay ();
             StartCoroutine("DelayedLoadNextLevel");
 		}
+	}
+
+	void PlayYay()
+	{
+		int choice = Random.Range (0, yays.Length);
+		gameObject.GetComponent<AudioSource> ().clip = yays [choice];
+		gameObject.GetComponent<AudioSource> ().Play ();
 	}
 
     IEnumerator DelayedLoadNextLevel()

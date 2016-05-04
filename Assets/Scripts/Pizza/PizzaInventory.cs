@@ -15,6 +15,8 @@ public class PizzaInventory : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        if (inventoryText == null)
+            inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
         inventory = new Dictionary<string, int>();
         inventory.Add(healthItem, startingHealthAmount);
         foreach (string s in itemNames)
@@ -41,10 +43,12 @@ public class PizzaInventory : MonoBehaviour {
 
 
     void FixedUpdate () {
+        Debug.Log(gameObject.name);
 		string text = "INVENTORY";
         text += "\n" + healthItem + ": " + inventory[healthItem];
 		for (int index = 0; index < itemNames.Length; index++)
 			text += "\n" + itemNames[index] + ": " + inventory [itemNames[index]];
+        Debug.Log(text);
         inventoryText.text = text;
 	}
 
@@ -60,6 +64,7 @@ public class PizzaInventory : MonoBehaviour {
 		}
 		catch (KeyNotFoundException e)
 		{
+            Debug.Log("key not found");
 			System.Array.Resize(ref itemNames, itemNames.Length + 1);
 			itemNames [itemNames.Length - 1] = s;
 			inventory.Add(s, amount);
@@ -78,7 +83,9 @@ public class PizzaInventory : MonoBehaviour {
 
     public void DecreaseHealth()
     {
+        Debug.Log("decrease health called");
         Decrement(healthItem);
+        Debug.Log(GetItemAmount(healthItem));
     }
 
     public void DecreaseHealthAmount(int amount)
@@ -90,4 +97,9 @@ public class PizzaInventory : MonoBehaviour {
 	{
 		inventory [s] = amount;
 	}
+
+    public int GetItemAmount(string s)
+    {
+        return inventory[s];
+    }
 }
