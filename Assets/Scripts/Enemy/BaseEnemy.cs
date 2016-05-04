@@ -3,19 +3,24 @@ using System.Collections;
 
 public abstract class BaseEnemy : MonoBehaviour {
 
-    Rigidbody2D rb2d;
-    public Vector2 homePosition;
-    public float normalSpeed = 5f;
+    public class EnemyState
+    {
+        public enum state { Home, GoHome, PlayerNear, PlayerRecentlyHit, PlayerFar}
+    }
 
-	// Use this for initialization
-	void Start () {
+
+
+    protected Rigidbody2D rb2d;
+    public float normalSpeed = 5f;
+    public EnemyState.state currentState = EnemyState.state.Home;
+
+    // Use this for initialization
+    protected void Start () {
         rb2d = GetComponent<Rigidbody2D>();
-	}
+    }
+    
 	
-	// Update is called once per frame
-	void Update () {
-	    
-	}
+	
 
     void OnTriggerStay2D(Collider2D other)
     {
@@ -52,7 +57,7 @@ public abstract class BaseEnemy : MonoBehaviour {
     // with faster speed the farther one is from the desination
     protected void GravMoveTowards(Vector2 dest)
     {
-        Vector2 towardsDest = Vector2Minus(rb2d.position,dest) * 0.7f;
+        Vector2 towardsDest = Vector2Minus(rb2d.position,dest) * rb2d.mass *0.25f;
         rb2d.AddForce(towardsDest);
     }
 
@@ -60,14 +65,14 @@ public abstract class BaseEnemy : MonoBehaviour {
     {
         Vector2 towardsDest = Vector2Minus(rb2d.position, dest);
         towardsDest.Normalize();
-        rb2d.AddForce(towardsDest * normalSpeed);
+        rb2d.AddForce(towardsDest * normalSpeed * rb2d.mass, ForceMode2D.Force);
     }
 
     protected void MoveAways(Vector2 dest)
     {
         Vector2 towardsDest = Vector2Minus(rb2d.position, dest);
         towardsDest.Normalize();
-        rb2d.AddForce(towardsDest * normalSpeed * -1f);
+        rb2d.AddForce(towardsDest * normalSpeed * -1f, ForceMode2D.Force);
     }
 
     Vector2 Vector2Minus(Vector2 beg, Vector2 end)
