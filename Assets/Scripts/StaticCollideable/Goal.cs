@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEditor.SceneManagement;
 
@@ -26,6 +27,8 @@ public class Goal : MonoBehaviour {
         {
             pi = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaInventory>();
         }
+
+
 	}
 	
 	// Update is called once per frame
@@ -35,21 +38,32 @@ public class Goal : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if(other.tag == "Player" && IngredientChecker())
+		if(other.tag == "Player" && IngredientsChecker())
 		{
 			winText.text = whatToSay;
             StartCoroutine("DelayedLoadNextLevel");
 		}
 	}
 
-    bool IngredientChecker()
+    bool IngredientsChecker()
     {
-        throw new System.Exception("implementing");
         for (int i =0; i <requiredIngredients.Length;i++ )
         {
-            
+            // if player doesn't have ingredient amount for item
+            // then return false
+            if (!IngredientCheck(i))
+                return false;
         }
+        // return true if passed all checks
         return true;
+    }
+
+    // Check if player has requiredIngredient Amount for ingredient Index
+    // return false otherwise
+    bool IngredientCheck(int ingredientIndex)
+    {
+        string ingredientName = requiredIngredients[ingredientIndex];
+        return pi.GetItemAmount(ingredientName) < requiredIngredientsAmounts[ingredientIndex];
     }
 
     IEnumerator DelayedLoadNextLevel()
