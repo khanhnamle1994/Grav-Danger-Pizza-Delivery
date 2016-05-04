@@ -107,11 +107,12 @@ public class Goal : MonoBehaviour {
         if (sceneName == "")
             throw new UnityException("sceneName not set. will load nothing");
         yield return new WaitForSeconds(5);
-        LoadNextLevel();
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaSceneManager>().LoadNextScene();
     }
 
     void LoadNextLevel()
     {
+        throw new UnityException("deprecated load level");
         EditorSceneManager.LoadScene(sceneName);
     }
 }
