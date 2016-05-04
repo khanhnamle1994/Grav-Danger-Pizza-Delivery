@@ -8,6 +8,10 @@ public class Goal : MonoBehaviour {
 	public Text winText;
 	public string whatToSay;
     public string sceneName="";
+    public string[] requiredIngredients;
+    public int[] requiredIngredientsAmounts;
+
+    private PizzaInventory pi;
 
 	// Use this for initialization
 	void Start () {
@@ -17,6 +21,11 @@ public class Goal : MonoBehaviour {
             winText = go.GetComponent<Text>();
         }
 		winText.text = "";
+
+        if(pi==null)
+        {
+            pi = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaInventory>();
+        }
 	}
 	
 	// Update is called once per frame
@@ -35,7 +44,12 @@ public class Goal : MonoBehaviour {
 
     bool IngredientChecker()
     {
-        return false;
+        throw new System.Exception("implementing");
+        for (int i =0; i <requiredIngredients.Length;i++ )
+        {
+            
+        }
+        return true;
     }
 
     IEnumerator DelayedLoadNextLevel()
