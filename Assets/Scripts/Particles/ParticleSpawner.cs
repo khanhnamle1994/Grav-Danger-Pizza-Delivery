@@ -5,10 +5,12 @@ using System.Collections;
 public class ParticleSpawner : MonoBehaviour {
 
     public List<GameObject> particles;
-    public float growthRate;
-    public float decreaseRate;
+    public float growthRate= .1f;
+    public float decreaseRate = 3f;
     public float eraserRadius = 2f;
+    public float limit = 6f;
     bool particleGrowing;
+    bool beginParticleDecreasing;
     GameObject currentParticle;
     float cameraSize, aspectRatio;
     Vector3 increase;
@@ -16,7 +18,7 @@ public class ParticleSpawner : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        growthRate = .1f;
+        beginParticleDecreasing = false;
         //increase = new Vector3(growthRate, growthRate, growthRate);
         cameraSize = Camera.main.orthographicSize;
     }
@@ -121,6 +123,7 @@ public class ParticleSpawner : MonoBehaviour {
     public void StopGrowing()
     {
         particleGrowing = false;
+        beginParticleDecreasing = false;
     }
 
 
@@ -139,23 +142,34 @@ public class ParticleSpawner : MonoBehaviour {
 
     void GrowParticle(GameObject particle)
     {
-        float limit = 20f;
+        
 
         BaseAffector baseParticle = particle.GetComponent<BaseAffector>();
 
-        // if planet larger than limit
-        // start decreasing the planet
-        if (particle.transform.localScale.x >= limit)
+        //Not begin particle decreasing 
+        if(!beginParticleDecreasing)
         {
-            baseParticle.DecreaseSize(decreaseRate);
+            baseParticle.IncreaseSize(growthRate);
+            baseParticle.IncreaseMass();
+            if (particle.transform.localScale.x >= limit)
+            {
+                beginParticleDecreasing = true;
+            }
         }
-        if (particle.transform.localScale.x <= 0)
+        // Begin decreasing the particle
+        else
         {
-            particleGrowing = false;
-            particle.GetComponent<BaseAffector>().TryExplode();
-            
+            if (particle.transform.localScale.x <= 1f)
+            {
+                beginParticleDecreasing = false;
+                particleGrowing = false;
+                particle.GetComponent<BaseAffector>().TryExplode();
+
+            }
+            else
+            {
+                baseParticle.DecreaseSize(decreaseRate);
+            }
         }
-        baseParticle.IncreaseSize(growthRate);
-        baseParticle.IncreaseMass();
     }
 }

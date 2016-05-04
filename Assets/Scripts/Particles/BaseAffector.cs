@@ -106,7 +106,7 @@ public abstract class BaseAffector : MonoBehaviour
     // Explode only if explodeOnCollide is true
     public void TryExplode()
     {
-        if (explodeOnCollide)
+        if (true)//explodeOnCollide)
             Explode();
     }
 
@@ -122,7 +122,7 @@ public abstract class BaseAffector : MonoBehaviour
         {
             pv.AddForce(-difference * rb2d.mass * explodeMultiplier / distance / distance);
         }
-
+        Destroy(gameObject);
     }
 
 
