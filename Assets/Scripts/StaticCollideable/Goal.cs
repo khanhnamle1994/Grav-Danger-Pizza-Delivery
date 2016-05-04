@@ -7,6 +7,7 @@ using UnityEditor.SceneManagement;
 public class Goal : MonoBehaviour {
 
 	public Text winText;
+    public Text ingredientText;
 	public string whatToSay;
     public string sceneName="";
 
@@ -14,6 +15,7 @@ public class Goal : MonoBehaviour {
 
     public string[] requiredIngredients;
     public int[] requiredIngredientsAmounts;
+    public bool isCheckIngredients = false;
 
     private PizzaInventory pi;
 
@@ -33,6 +35,10 @@ public class Goal : MonoBehaviour {
             pi = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaInventory>();
         }
 
+        if(ingredientText==null && isCheckIngredients)
+        {
+            ingredientText = GameObject.Find("IngredientsText").GetComponent<Text>();
+        }
         
 	}
 	
@@ -41,7 +47,18 @@ public class Goal : MonoBehaviour {
 	
 	}
 
-	void OnTriggerEnter2D (Collider2D other)
+    void FixedUpdate()
+    {
+        if (isCheckIngredients)
+        {
+            string text = "REQ. Ingredients";
+            for (int index = 0; index < requiredIngredients.Length; index++)
+                text += "\n" + requiredIngredients[index] + ": " + requiredIngredientsAmounts[index];
+            ingredientText.text = text;
+        }
+    }
+
+    void OnTriggerEnter2D (Collider2D other)
 	{
 		if(other.tag == "Player" && IngredientsChecker())
 		{
@@ -60,6 +77,9 @@ public class Goal : MonoBehaviour {
 
     bool IngredientsChecker()
     {
+        if (!isCheckIngredients)
+            return true;
+
         for (int i =0; i <requiredIngredients.Length;i++ )
         {
             // if player doesn't have ingredient amount for item
