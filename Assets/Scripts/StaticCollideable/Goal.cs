@@ -9,6 +9,9 @@ public class Goal : MonoBehaviour {
 	public Text winText;
 	public string whatToSay;
     public string sceneName="";
+
+	public AudioClip[] yays;
+
     public string[] requiredIngredients;
     public int[] requiredIngredientsAmounts;
 
@@ -41,8 +44,16 @@ public class Goal : MonoBehaviour {
 		if(other.tag == "Player" && IngredientsChecker())
 		{
 			winText.text = whatToSay;
+			PlayYay ();
             StartCoroutine("DelayedLoadNextLevel");
 		}
+	}
+    
+	void PlayYay()
+	{
+		int choice = Random.Range (0, yays.Length);
+		gameObject.GetComponent<AudioSource> ().clip = yays [choice];
+		gameObject.GetComponent<AudioSource> ().Play ();
 	}
 
     bool IngredientsChecker()
