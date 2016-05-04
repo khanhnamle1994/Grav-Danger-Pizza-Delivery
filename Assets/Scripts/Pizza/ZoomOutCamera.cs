@@ -17,12 +17,13 @@ public class ZoomOutCamera : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		/*if (Input.GetKeyDown('%'))
+			SceneManager.LoadScene(sceneOne);*/
 	}
 
-	void OnMouseDown(){
+	/*void OnMouseDown(){
 		SceneManager.LoadScene(sceneOne);
-	}
+	}*/
 
 	IEnumerator ZoomOut()
 	{
