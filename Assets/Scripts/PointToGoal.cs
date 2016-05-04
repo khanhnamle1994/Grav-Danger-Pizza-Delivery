@@ -13,7 +13,6 @@ public class PointToGoal : MonoBehaviour {
 		goal = GameObject.FindGameObjectWithTag ("Finish");
 		player = GameObject.FindGameObjectWithTag ("Player");
 		arrow = gameObject.GetComponent<SpriteRenderer> ();
-		//arrow.enabled = false;
 	}
 	
 	// Update is called once per frame
