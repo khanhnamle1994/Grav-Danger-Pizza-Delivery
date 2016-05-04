@@ -5,13 +5,13 @@ public abstract class Gravitor : BaseAffector {
 
     
     protected abstract bool isAwayCenterForce { get; }
-    
 
+    public float forceMultiplier = 1;
 
     protected override void AffectObject(GameObject other)
     {
         Vector2 directionVector = OtherToParticleVector2(other);
-        float gravityForce = rb2d.mass * .1f;
+        float gravityForce = rb2d.mass * .1f * forceMultiplier;
         float force;
         if (isAwayCenterForce)
             force = gravityForce * -1;
