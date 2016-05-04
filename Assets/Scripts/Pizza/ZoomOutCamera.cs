@@ -6,9 +6,12 @@ public class ZoomOutCamera : MonoBehaviour {
 
 	public GameObject background;
 	public int sceneOne;
+	public float duration;
+	float time;
 
 	// Use this for initialization
 	void Start () {
+		time = 0;
 		StartCoroutine (ZoomOut ());
 	}
 	
@@ -25,8 +28,9 @@ public class ZoomOutCamera : MonoBehaviour {
 	{
 		Camera.main.orthographicSize += .015f;
 		background.transform.localScale += new Vector3 (.005f, .005f, 0);
+		time += Time.deltaTime;
 		yield return null;
-		if (Camera.main.orthographicSize < 35f)
+		if (time < duration)
 			StartCoroutine(ZoomOut ());
 		else
 			SceneManager.LoadScene(sceneOne);
