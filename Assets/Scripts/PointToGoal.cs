@@ -7,13 +7,14 @@ public class PointToGoal : MonoBehaviour {
 	public GameObject player;
 	SpriteRenderer arrow;
 	Vector3 direction;
+	public bool enableAtStart;
 
 	// Use this for initialization
 	void Start () {
 		goal = GameObject.FindGameObjectWithTag ("Finish");
 		player = GameObject.FindGameObjectWithTag ("Player");
 		arrow = gameObject.GetComponent<SpriteRenderer> ();
-		//arrow.enabled = false;
+		arrow.enabled = enableAtStart;
 	}
 	
 	// Update is called once per frame
@@ -23,4 +24,9 @@ public class PointToGoal : MonoBehaviour {
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime*5f);
     }
+
+	void ToggleArrow(bool on)
+	{
+		arrow.enabled = on;
+	}
 }
