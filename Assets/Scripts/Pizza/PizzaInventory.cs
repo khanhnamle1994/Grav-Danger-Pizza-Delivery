@@ -43,12 +43,10 @@ public class PizzaInventory : MonoBehaviour {
 
 
     void FixedUpdate () {
-        Debug.Log(gameObject.name);
-		string text = "INVENTORY";
+        string text = "INVENTORY";
         text += "\n" + healthItem + ": " + inventory[healthItem];
 		for (int index = 0; index < itemNames.Length; index++)
 			text += "\n" + itemNames[index] + ": " + inventory [itemNames[index]];
-        Debug.Log(text);
         inventoryText.text = text;
 	}
 
@@ -100,6 +98,14 @@ public class PizzaInventory : MonoBehaviour {
 
     public int GetItemAmount(string s)
     {
-        return inventory[s];
+        try
+        {
+            return inventory[s];
+        }
+        catch (KeyNotFoundException e)
+        {
+            Debug.Log("key not found");
+            return 0;
+        }
     }
 }

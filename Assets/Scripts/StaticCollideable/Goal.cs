@@ -22,6 +22,8 @@ public class Goal : MonoBehaviour {
         if (winText==null)
         {
             GameObject go = GameObject.Find("WinText");
+            if (go == null)
+                throw new UnityException("WinText not found for goal");
             winText = go.GetComponent<Text>();
         }
 		winText.text = "";
@@ -74,7 +76,7 @@ public class Goal : MonoBehaviour {
     bool IngredientCheck(int ingredientIndex)
     {
         string ingredientName = requiredIngredients[ingredientIndex];
-        return pi.GetItemAmount(ingredientName) < requiredIngredientsAmounts[ingredientIndex];
+        return pi.GetItemAmount(ingredientName) >= requiredIngredientsAmounts[ingredientIndex];
     }
 
     IEnumerator DelayedLoadNextLevel()
