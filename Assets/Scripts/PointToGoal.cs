@@ -25,7 +25,7 @@ public class PointToGoal : MonoBehaviour {
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime*5f);
     }
 
-	void ToggleArrow(bool on)
+	public void ToggleArrow(bool on)
 	{
 		arrow.enabled = on;
 	}
