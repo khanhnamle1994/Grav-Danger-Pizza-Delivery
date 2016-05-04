@@ -53,7 +53,10 @@ public class Goal : MonoBehaviour {
         {
             string text = "REQ. Ingredients";
             for (int index = 0; index < requiredIngredients.Length; index++)
-                text += "\n" + requiredIngredients[index] + ": " + requiredIngredientsAmounts[index];
+            {
+                string currentItem = requiredIngredients[index];
+                text += "\n" + currentItem + ": " + pi.GetItemAmount(currentItem) + "/" + requiredIngredientsAmounts[index];
+            }
             ingredientText.text = text;
         }
     }
