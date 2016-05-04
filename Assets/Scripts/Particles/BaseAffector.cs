@@ -13,6 +13,10 @@ public abstract class BaseAffector : MonoBehaviour
 
     public float explodeMultiplier;
     public bool explodeOnCollide;
+
+    public bool isAffectAsteroid = false;
+    public bool isAffectEnemy = false;
+
     protected Rigidbody2D rb2d;
     protected PizzaVelocity pv;
 
@@ -43,6 +47,16 @@ public abstract class BaseAffector : MonoBehaviour
         // if player within planet effective gravity radius then
         // start add force to the player
         if (other.gameObject.tag == "Player")
+        {
+            AffectObject(other.gameObject);
+        }
+
+        if (other.gameObject.tag == "Asteroid" && isAffectAsteroid)
+        {
+            AffectObject(other.gameObject);
+        }
+
+        if (other.gameObject.tag == "Enemy" && isAffectEnemy)
         {
             AffectObject(other.gameObject);
         }
