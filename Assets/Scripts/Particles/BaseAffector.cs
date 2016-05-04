@@ -133,7 +133,7 @@ public abstract class BaseAffector : MonoBehaviour
 
     IEnumerator DestroySelf()
     {
-        yield return new WaitForSeconds(60);
+        yield return new WaitForSeconds(15);
         DestroyObject(gameObject);
     }
 

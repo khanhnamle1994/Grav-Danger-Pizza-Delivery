@@ -14,8 +14,8 @@ public class ScrollingScript : MonoBehaviour {
 	// scrolling speed
 	public Vector2 speed = new Vector2(2,2);
 
-	// moving direction
-	public Vector2 direction = new Vector2(1,0);
+    // moving direction
+    public Vector2 direction; //= new Vector2(1,0);
 
 	/// <summary>
 	/// if Background is Inifinite
@@ -49,6 +49,8 @@ public class ScrollingScript : MonoBehaviour {
 
     private bool isReAllocatingCenter;
     private float lastTimePlayerInCenter;
+
+    public int depth;
 
 	// Use this for initialization
 	void Start () {
@@ -97,7 +99,7 @@ public class ScrollingScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // move in direction of the camera
-        direction = rb2d.velocity.normalized;
+        direction = rb2d.velocity;
 
 		Vector3 movement = new Vector3 (
 			                   speed.x * direction.x,
@@ -210,7 +212,7 @@ public class ScrollingScript : MonoBehaviour {
 
 	void TeleportTo(GameObject go, Position p){
         Vector2 new_center = FetchNewCenter(p);
-		go.transform.position = new Vector3(new_center.x,new_center.y,1);
+		go.transform.position = new Vector3(new_center.x,new_center.y,depth);
 	}
 
 	Vector2 FetchNewCenter(Position p){
