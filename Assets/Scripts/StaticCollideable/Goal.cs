@@ -26,12 +26,17 @@ public class Goal : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if(other.tag == "Player")
+		if(other.tag == "Player" && IngredientChecker())
 		{
 			winText.text = whatToSay;
             StartCoroutine("DelayedLoadNextLevel");
 		}
 	}
+
+    bool IngredientChecker()
+    {
+        return false;
+    }
 
     IEnumerator DelayedLoadNextLevel()
     {
@@ -45,4 +50,5 @@ public class Goal : MonoBehaviour {
     {
         EditorSceneManager.LoadScene(sceneName);
     }
+
 }
