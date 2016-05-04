@@ -5,27 +5,8 @@ public abstract class Gravitor : BaseAffector {
 
     
     protected abstract bool isAwayCenterForce { get; }
-    public bool isAffectAsteroid;
+    
 
-    void OnTriggerStay2D(Collider2D other)
-    {
-        // if player within planet effective gravity radius then
-        // start add force to the player
-        if (other.gameObject.tag == "Player")
-        {
-            AffectObject(other.gameObject);
-        }
-
-        if (other.gameObject.tag == "Asteroid" && isAffectAsteroid)
-        {
-            AffectObject(other.gameObject);
-        }
-
-		if (other.gameObject.tag == "Enemy" && isAffectAsteroid)
-		{
-			AffectObject(other.gameObject);
-		}
-    }
 
     protected override void AffectObject(GameObject other)
     {
