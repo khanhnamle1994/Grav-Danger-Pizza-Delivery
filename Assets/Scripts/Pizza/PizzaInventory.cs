@@ -13,6 +13,12 @@ public class PizzaInventory : MonoBehaviour {
     public string healthItem = "Pizza";
     public int startingHealthAmount = 15;
 
+    //public delegate void OnInventoryChangeOld(string textString);
+    //public event OnInventoryChangeOld onInventoryChangeOld = delegate {};
+
+    public delegate void OnInventoryChange();
+    public event OnInventoryChange onInventoryChange = delegate { };
+
     // Use this for initialization
     void Start () {
         if (inventoryText == null)
@@ -26,9 +32,13 @@ public class PizzaInventory : MonoBehaviour {
 		for (int i = 0; i < itemAmounts.Length; i++) {
 			inventory [itemNames[i]] = itemAmounts [i];
 		}
+        ForcedInventoryTextEventCall();
     }
 
-
+    public void ForcedInventoryTextEventCall()
+    {
+        onInventoryChange();
+    }
 
     // Update is called once per frame
     void Update()
@@ -43,12 +53,18 @@ public class PizzaInventory : MonoBehaviour {
 
 
     void FixedUpdate () {
+        ///inventoryText.text = BuildText();
+	}
+
+    public string BuildText()
+    {
         string text = "INVENTORY";
         text += "\n" + healthItem + ": " + inventory[healthItem];
-		for (int index = 0; index < itemNames.Length; index++)
-			text += "\n" + itemNames[index] + ": " + inventory [itemNames[index]];
-        inventoryText.text = text;
-	}
+        for (int index = 0; index < itemNames.Length; index++)
+            text += "\n" + itemNames[index] + ": " + inventory[itemNames[index]];
+        return text;
+    }
+
 
     public void Increment(string s)
     {
@@ -67,11 +83,12 @@ public class PizzaInventory : MonoBehaviour {
 			itemNames [itemNames.Length - 1] = s;
 			inventory.Add(s, amount);
 		}
+        onInventoryChange();
 	}
 
 	public void Decrement(string s)
     {
-        inventory[s] -= 1;
+        DecrementAmount(s, 1);
     }
 
 	public void DecrementAmount(string s, int amount)

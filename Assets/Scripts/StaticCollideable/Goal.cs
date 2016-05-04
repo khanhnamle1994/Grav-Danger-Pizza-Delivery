@@ -39,26 +39,23 @@ public class Goal : MonoBehaviour {
         {
             ingredientText = GameObject.Find("IngredientsText").GetComponent<Text>();
         }
-        
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+    
 
-    void FixedUpdate()
+    public string BuildText()
     {
-        if (isCheckIngredients)
+        string text = "REQ. Ingredients";
+        for (int index = 0; index < requiredIngredients.Length; index++)
         {
-            string text = "REQ. Ingredients";
-            for (int index = 0; index < requiredIngredients.Length; index++)
-            {
-                string currentItem = requiredIngredients[index];
-                text += "\n" + currentItem + ": " + pi.GetItemAmount(currentItem) + "/" + requiredIngredientsAmounts[index];
-            }
-            ingredientText.text = text;
+            string currentItem = requiredIngredients[index];
+            text += "\n" + currentItem + ": " + pi.GetItemAmount(currentItem) + "/" + requiredIngredientsAmounts[index];
         }
+        return text;
     }
 
     void OnTriggerEnter2D (Collider2D other)
@@ -108,11 +105,5 @@ public class Goal : MonoBehaviour {
             throw new UnityException("sceneName not set. will load nothing");
         yield return new WaitForSeconds(5);
         GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaSceneManager>().LoadNextScene();
-    }
-
-    void LoadNextLevel()
-    {
-        throw new UnityException("deprecated load level");
-        EditorSceneManager.LoadScene(sceneName);
     }
 }

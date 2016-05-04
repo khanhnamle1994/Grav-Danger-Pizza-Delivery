@@ -21,4 +21,9 @@ public class PizzaSceneManager : MonoBehaviour {
     {
         EditorSceneManager.LoadScene(sceneName);
     }
+
+    public void SetNextScene(string s)
+    {
+        nextSceneName = s;
+    }
 }
