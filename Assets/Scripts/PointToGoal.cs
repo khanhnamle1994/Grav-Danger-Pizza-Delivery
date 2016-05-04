@@ -19,10 +19,14 @@ public class PointToGoal : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Vector3 dir = goal.transform.position - player.transform.position;
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime*5f);
+        if (goal!= null)
+        {
+            Vector3 dir = goal.transform.position - player.transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 5f);
+        }
+        
     }
 
 	public void ToggleArrow(bool on)
