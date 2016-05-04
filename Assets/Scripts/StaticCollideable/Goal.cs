@@ -9,12 +9,18 @@ public class Goal : MonoBehaviour {
 	public string whatToSay;
     public string sceneName="";
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public AudioClip[] yays;
 =======
+=======
+>>>>>>> origin/master
     public string[] requiredIngredients;
     public int[] requiredIngredientsAmounts;
 
     private PizzaInventory pi;
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 
 	// Use this for initialization
@@ -48,6 +54,7 @@ public class Goal : MonoBehaviour {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	void PlayYay()
 	{
 		int choice = Random.Range (0, yays.Length);
@@ -55,6 +62,8 @@ public class Goal : MonoBehaviour {
 		gameObject.GetComponent<AudioSource> ().Play ();
 	}
 =======
+=======
+>>>>>>> origin/master
     bool IngredientChecker()
     {
         throw new System.Exception("implementing");
@@ -64,6 +73,9 @@ public class Goal : MonoBehaviour {
         }
         return true;
     }
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
 
     IEnumerator DelayedLoadNextLevel()
