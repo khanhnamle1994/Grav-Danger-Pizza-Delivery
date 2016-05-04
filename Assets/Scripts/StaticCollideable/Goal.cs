@@ -10,7 +10,7 @@ public class Goal : MonoBehaviour {
 	public string whatToSay;
     public string sceneName="";
 
-	public AudioClip[] yays;
+    public AudioClip[] yays;
 
     public string[] requiredIngredients;
     public int[] requiredIngredientsAmounts;
@@ -31,7 +31,7 @@ public class Goal : MonoBehaviour {
             pi = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaInventory>();
         }
 
-
+        
 	}
 	
 	// Update is called once per frame
@@ -48,7 +48,7 @@ public class Goal : MonoBehaviour {
             StartCoroutine("DelayedLoadNextLevel");
 		}
 	}
-    
+
 	void PlayYay()
 	{
 		int choice = Random.Range (0, yays.Length);
@@ -89,5 +89,4 @@ public class Goal : MonoBehaviour {
     {
         EditorSceneManager.LoadScene(sceneName);
     }
-
 }
