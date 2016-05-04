@@ -28,6 +28,8 @@ public class TutorialAudioQueues : MonoBehaviour {
 		audio.PlayNextWhenReady();
 		yield return new WaitUntil (()=> { return Input.GetMouseButtonDown(1) && Input.GetButton("Shift"); }); //wait until yellow
 		audio.autoPlayNext = true;
+		yield return new WaitForSeconds (15f);
+		GameObject.FindGameObjectWithTag ("Player").GetComponentInChildren<PointToGoal> ().ToggleArrow (true);
 
 	}
 }
