@@ -10,7 +10,7 @@ public abstract class Velocitor : BaseAffector {
 
         Vector2 v = rb2d.velocity;
 
-        pv.AddForce(v.normalized * velocityMultipler);
+        rb2d.AddForce(v.normalized * rb2d.mass * velocityMultipler,ForceMode2D.Force);
 
     }
 }

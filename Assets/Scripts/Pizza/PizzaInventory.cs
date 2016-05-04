@@ -35,7 +35,7 @@ public class PizzaInventory : MonoBehaviour {
     {
         if (inventory[healthItem]<0)
         {
-            GetComponent<PizzaDeath>().ResetLevel();
+            GetComponent<PizzaSceneManager>().ResetLevel();
         }
     }
 
