@@ -6,9 +6,10 @@ public class PizzaMove : MonoBehaviour {
 
     Rigidbody2D rg2d;
 	PizzaInventory pi;
-    bool helpOn = false;
-    string helpString = "Particle Help\nRightClick or LeftClick creates:\nAttractor    | Repulsor\nFastor        | Slowor(Hold Shift)\n        \nRightClick also\nErases Particles";
-    string helpStringNone = "";
+    public bool helpOn = false;
+	//string helpString = "Particle Help\nLeftClick or RightClick creates:\nAttractor    | Repulsor\nFastor         | Slowor     (Hold L. Shift)\n        \nLeftClick also\nErases Particles";
+	string helpString = "Particle Help (Press 'h' to Close)\nLeftClick                 = Blue Attractor \n RightClick              = Red Repulsor\n L.Shift+LeftClick   = Green Fastor\n L.Shift+RightClick = Yellow Slowor\n\n LeftClick also erases Particles \n Hold mouse to create bigger particles";
+	string helpStringNone = "";
     TextController tc;
 
     void Awake()
@@ -20,7 +21,7 @@ public class PizzaMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+		
 	}
 	
 	// Update is called once per frame
