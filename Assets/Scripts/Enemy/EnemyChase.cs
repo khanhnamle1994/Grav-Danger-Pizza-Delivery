@@ -65,11 +65,10 @@ public class EnemyChase : BaseEnemy {
 
     protected void PlayerRecentlyHit()
     {
-        int i  = 0;
+
     }
 
-
-    private float lastHitPlayerTime = 0f;
+    
     private bool recentlyDamangedPlayer = false;
 
     protected override void NearPlayerEnemyAI(GameObject other)

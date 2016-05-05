@@ -17,7 +17,7 @@ public class TextController : MonoBehaviour {
     public delegate void OnHelp(string helpString);
     public event OnHelp onHelp;
 
-
+    internal PizzaInventory pi;
 
     // Use this for initialization
     void Start () {
@@ -25,9 +25,7 @@ public class TextController : MonoBehaviour {
         ingredientText = GameObject.Find("IngredientsText").GetComponent<Text>();
         centerText = GameObject.Find("CenterText").GetComponent<Text>();
         helpText = GameObject.Find("HelpText").GetComponent<Text>();
-
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        PizzaInventory pi = player.GetComponent<PizzaInventory>();
+        
         Goal goal = GameObject.FindGameObjectWithTag("Finish").GetComponent<Goal>();
 
         PizzaInventory.OnInventoryChange InventorySet = () =>

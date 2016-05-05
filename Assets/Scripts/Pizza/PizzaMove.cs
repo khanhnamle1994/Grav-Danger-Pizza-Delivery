@@ -4,46 +4,8 @@ using System.Collections;
 
 public class PizzaMove : MonoBehaviour {
 
-    Rigidbody2D rg2d;
-	PizzaInventory pi;
-    bool helpOn = false;
-    string helpString = "Particle Help\nRightClick or LeftClick creates:\nAttractor    | Repulsor\nFastor        | Slowor(Hold Shift)\n        \nRightClick also\nErases Particles";
-    string helpStringNone = "";
-    TextController tc;
-
-    public 
-
-    void Awake()
-    {
-        rg2d = GetComponent<Rigidbody2D>();
-        pi = GetComponent<PizzaInventory>();
-        tc = FindObjectOfType<TextController>().GetComponent<TextController>();
-    }
-
-	// Use this for initialization
-	void Start () {
-        
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	    if(Input.GetKeyDown(KeyCode.H))
-        {
-            
-            if(!helpOn)
-            {
-                tc.SetHelpText(helpString);
-                helpOn = true;
-            }
-            else
-            {
-                tc.SetHelpText(helpStringNone);
-                helpOn = false;
-            }
-        }
-	}
-
+    internal Rigidbody2D rg2d;
+	internal PizzaInventory pi;
 
     void FixedUpdate()
     {

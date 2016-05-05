@@ -18,12 +18,14 @@ public abstract class BaseAffector : MonoBehaviour
     public bool isAffectEnemy = false;
 
     protected Rigidbody2D rb2d;
-    protected PizzaVelocity pv;
+    protected PizzaMain pm;
+    protected Rigidbody2D playerRb2d;
 
     // Use this for initialization
     void Start()
     {
-        pv = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaVelocity>();
+        pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaMain>();
+        playerRb2d = pm.rb2d;
         DelayedDestroySelf();
     }
 
@@ -113,7 +115,7 @@ public abstract class BaseAffector : MonoBehaviour
     // Guaranteened to explode
     public void Explode()
     {
-        Vector3 difference = gameObject.transform.position - pv.gameObject.transform.position;
+        Vector3 difference = gameObject.transform.position - pm.transform.position;
         difference.z = 0;
 
         float distance = difference.magnitude;

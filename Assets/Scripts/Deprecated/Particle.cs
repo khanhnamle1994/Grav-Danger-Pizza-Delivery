@@ -6,16 +6,16 @@ public abstract class Particle : MonoBehaviour {
 	float gravityRadius;
 	float affectiveForce;
 
-	PizzaVelocity pv;
+	//PizzaVelocity pv;
 
 	// Use this for initialization
 	void Start () {
-		pv = GameObject.FindGameObjectWithTag ("Player").GetComponent<PizzaVelocity>();
+		//pv = GameObject.FindGameObjectWithTag ("Player").GetComponent<PizzaVelocity>();
 	}
 
 	void Awake()
 	{
-		
+        throw new UnityException("deprecated particle");
 	}
 
 	// Update is called once per frame

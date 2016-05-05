@@ -3,23 +3,22 @@ using System.Collections.Generic;
 
 public class PointToGoal : MonoBehaviour {
 
-	public GameObject finish;
+	internal GameObject finish { get; set; }
 	public GameObject player;
 	SpriteRenderer arrow;
 	Vector3 direction;
 	public bool enableAtStart;
 
-    Goal goal;
+    internal Goal goal { get; set; }
     Transform currentTarget;
 
     private float lastReallocationTime = 0f;
 
 	// Use this for initialization
 	void Start () {
-		finish = GameObject.FindGameObjectWithTag ("Finish");
-		player = GameObject.FindGameObjectWithTag ("Player");
 
-        goal = finish.GetComponent<Goal>();
+        player = GameObject.FindGameObjectWithTag ("Player");
+
 
 		arrow = gameObject.GetComponent<SpriteRenderer> ();
 		arrow.enabled = enableAtStart;
