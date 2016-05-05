@@ -12,7 +12,7 @@ public class TextController : MonoBehaviour {
     //public delegate string OnCenterText();
     //public event OnCenterText onCenterText;
 
-    public string deathString = "Out of Pizza!";
+    string deathString = "Out of Pizza!";
 
     public delegate void OnHelp(string helpString);
     public event OnHelp onHelp;
