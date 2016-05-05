@@ -6,12 +6,17 @@ public class TextController : MonoBehaviour {
     Text inventoryText;
     Text ingredientText;
     Text centerText;
+    Text helpText;
 
 
-    public delegate string OnCenterText();
-    public event OnCenterText onCenterText;
+    //public delegate string OnCenterText();
+    //public event OnCenterText onCenterText;
 
     public string deathString = "You died";
+
+    public delegate void OnHelp(string helpString);
+    public event OnHelp onHelp;
+
 
 
     // Use this for initialization
@@ -19,7 +24,7 @@ public class TextController : MonoBehaviour {
         inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
         ingredientText = GameObject.Find("IngredientsText").GetComponent<Text>();
         centerText = GameObject.Find("CenterText").GetComponent<Text>();
-
+        helpText = GameObject.Find("HelpText").GetComponent<Text>();
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         PizzaInventory pi = player.GetComponent<PizzaInventory>();
@@ -52,9 +57,17 @@ public class TextController : MonoBehaviour {
         };
         pi.onPlayerDeath += DeathSet;
 
+        onHelp += (string helpString) =>
+        {
+            SetTextFor(helpText, helpString);
+        };
+
     }
 
-
+    internal void SetHelpText(string helpString)
+    {
+        onHelp(helpString);
+    }
 
     public void SetTextFor(Text text, string textString)
     {
