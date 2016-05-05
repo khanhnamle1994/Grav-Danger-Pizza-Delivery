@@ -15,7 +15,7 @@ public class ScrollingScript : MonoBehaviour {
 	public Vector2 speed = new Vector2(2,2);
 
     // moving direction
-    public Vector2 direction; //= new Vector2(1,0);
+    private Vector2 direction; //= new Vector2(1,0);
 
 	/// <summary>
 	/// if Background is Inifinite
