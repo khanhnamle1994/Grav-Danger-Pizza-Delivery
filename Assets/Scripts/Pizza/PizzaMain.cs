@@ -7,7 +7,8 @@ public class PizzaMain : MonoBehaviour {
 
     bool helpOn = false;
     string helpString = "Particle Help\nLeftClick or RightClick creates:\nAttractor    | Repulsor\nFastor        | Slowor    (Hold L.Shift)\n        \nLeftClick also erases Particles\nHold mouse button to create larger Particles";
-    string helpStringNone = "";
+    string helpStringNone = "Press 'h' for help";
+
 
 
 
@@ -36,7 +37,7 @@ public class PizzaMain : MonoBehaviour {
 
         gl = FindObjectOfType<Goal>();
         
-        
+
         // if goal doesn't exist, but point to goal exists
         // disable the point to goal
         if(gl == null && ptg == null)
@@ -57,8 +58,6 @@ public class PizzaMain : MonoBehaviour {
         pm.pi = pi;
         tc.pi = pi;
     }
-
-    
 
     void Update()
     {
