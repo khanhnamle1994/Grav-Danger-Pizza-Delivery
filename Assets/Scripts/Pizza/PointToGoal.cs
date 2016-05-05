@@ -74,6 +74,8 @@ public class PointToGoal : MonoBehaviour {
         else
         {
             Transform tempTarget = NearestTransform(PossibleTargets());
+			if (tempTarget == null)
+				return null;
             tempTarget.GetComponent<Pickup>().onPickUpDeath += () =>
             {
                 ReallocateTarget();
@@ -96,7 +98,8 @@ public class PointToGoal : MonoBehaviour {
                 targets.Add(pickup.gameObject.transform);
         }
         if (targets.Count == 0)
-            throw new UnityException("No possible target found for ingredients");
+            //throw new UnityException("No possible target found for ingredients");
+			Debug.Log("FORGET ABOUT IT");
         return targets;
     }
 

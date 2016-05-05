@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 public class GoToScene : MonoBehaviour {
 
@@ -8,6 +8,6 @@ public class GoToScene : MonoBehaviour {
 
 	public void LoadScene()
 	{
-		EditorSceneManager.LoadScene(scene);
+		SceneManager.LoadScene(scene);
 	}
 }

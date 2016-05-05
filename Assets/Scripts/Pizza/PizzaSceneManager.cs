@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 
 
 public class PizzaSceneManager : MonoBehaviour {
@@ -44,7 +44,7 @@ public class PizzaSceneManager : MonoBehaviour {
 
     private void ResetLevel()
     {
-        EditorSceneManager.LoadScene(EditorSceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private SceneChangeFunction LoadNextSceneDelegate()
@@ -59,12 +59,12 @@ public class PizzaSceneManager : MonoBehaviour {
 
     public void LoadNextSceneCalled(string sceneName)
     {
-        EditorSceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(sceneName);
     }
 
     public void LoadSceneIndex(int sceneIndex)
     {
-        EditorSceneManager.LoadScene(sceneIndex);
+        SceneManager.LoadScene(sceneIndex);
     }
 
     public void SetNextScene(string s)
