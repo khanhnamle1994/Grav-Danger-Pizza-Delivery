@@ -55,7 +55,7 @@ public class PizzaSceneManager : MonoBehaviour {
     public void ForceFindLoadNextScene()
     {
         int nextBuildIndex = SceneManager.GetActiveScene().buildIndex+1;
-        LoadNextSceneCalled(SceneManager.GetSceneAt(nextBuildIndex).name);
+        SceneManager.LoadScene(nextBuildIndex);
     }
 
     public void LoadNextScene()
