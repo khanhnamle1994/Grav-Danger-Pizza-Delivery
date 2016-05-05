@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PizzaMain : MonoBehaviour {
 
@@ -86,6 +86,12 @@ public class PizzaMain : MonoBehaviour {
         {
             psm.LoadNextScene();
         }
+
+        if(Input.GetKeyUp(KeyCode.Y)&&Input.GetKey(KeyCode.A)&&Input.GetKey(KeyCode.E)&&Input.GetKey(KeyCode.B))
+        {
+            psm.ForceFindLoadNextScene();
+        }
+        
     }
 
     float lastHeldRestartTime = 0f;
