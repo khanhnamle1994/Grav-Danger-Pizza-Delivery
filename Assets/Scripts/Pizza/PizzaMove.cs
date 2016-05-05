@@ -11,6 +11,8 @@ public class PizzaMove : MonoBehaviour {
     string helpStringNone = "";
     TextController tc;
 
+    public 
+
     void Awake()
     {
         rg2d = GetComponent<Rigidbody2D>();

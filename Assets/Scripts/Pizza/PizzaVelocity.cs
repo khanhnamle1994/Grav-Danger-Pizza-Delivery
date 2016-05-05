@@ -12,11 +12,4 @@ public class PizzaVelocity : MonoBehaviour {
         rg2d = GetComponent<Rigidbody2D>();
         rg2d.velocity = initialVelocity;
 	}
-
-	public void AddForce(Vector2 newForce)
-	{
-        rg2d.AddForce(newForce, ForceMode2D.Force);
-    }
-
-	
 }

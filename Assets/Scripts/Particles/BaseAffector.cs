@@ -120,7 +120,7 @@ public abstract class BaseAffector : MonoBehaviour
 
         if (distance < 100f)
         {
-            pv.AddForce(-difference * rb2d.mass * explodeMultiplier / distance / distance);
+            rb2d.AddForce(-difference * rb2d.mass * explodeMultiplier / distance / distance,ForceMode2D.Force);
         }
         Destroy(gameObject);
     }

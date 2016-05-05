@@ -18,6 +18,9 @@ public class AudioTrack : MonoBehaviour {
     
     private AudioClip nextClip;
 
+
+    
+
 	// Use this for initialization
 	void Start () {
 		audio = GetComponent<AudioSource> ();
