@@ -3,9 +3,18 @@ using System.Collections;
 
 
 public class PizzaMove : MonoBehaviour {
-
+    
     internal Rigidbody2D rg2d;
 	internal PizzaInventory pi;
+    TextController tc;
+
+    void Awake()
+    {
+        rg2d = GetComponent<Rigidbody2D>();
+        pi = GetComponent<PizzaInventory>();
+        tc = FindObjectOfType<TextController>().GetComponent<TextController>();
+    }
+    
 
     void FixedUpdate()
     {
