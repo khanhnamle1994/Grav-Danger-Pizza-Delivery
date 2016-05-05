@@ -62,6 +62,11 @@ public class PizzaSceneManager : MonoBehaviour {
         EditorSceneManager.LoadScene(sceneName);
     }
 
+    public void LoadSceneIndex(int sceneIndex)
+    {
+        EditorSceneManager.LoadScene(sceneIndex);
+    }
+
     public void SetNextScene(string s)
     {
         nextSceneName = s;

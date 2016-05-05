@@ -58,6 +58,7 @@ public class PizzaMain : MonoBehaviour {
         tc.pi = pi;
     }
 
+    
 
     void Update()
     {
@@ -76,5 +77,17 @@ public class PizzaMain : MonoBehaviour {
                 helpOn = false;
             }
         }
+
+        if(Input.GetKey(KeyCode.R))
+        {
+
+        }
+    }
+
+    float lastHeldRestartTime = 0f;
+
+    void HoldRestart()
+    {
+
     }
 }
