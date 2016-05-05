@@ -120,7 +120,7 @@ public class ScrollingScript : MonoBehaviour {
                 
                 
                 // if longer than 4 seconds not in center, force reallocate center
-                if (lastTimePlayerInCenter>.5f)
+                if (lastTimePlayerInCenter>2f)
                 {
                     foreach (GameObject go in clones)
                     {
