@@ -6,7 +6,6 @@ public class PizzaMove : MonoBehaviour {
     
     internal Rigidbody2D rg2d;
 	internal PizzaInventory pi;
-    TextController tc;
     
 
     void FixedUpdate()
