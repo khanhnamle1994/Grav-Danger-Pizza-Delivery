@@ -44,6 +44,8 @@ public class PizzaMain : MonoBehaviour {
             ptg.gameObject.SetActive(false);
         }
 
+        // if goal and point to goal exist, 
+        // assign point to goal
         if(gl != null && ptg != null)
         {
             ptg.goal = gl;
