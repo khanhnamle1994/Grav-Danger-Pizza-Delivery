@@ -128,7 +128,7 @@ public class ScrollingScript : MonoBehaviour {
                         camera_pos.z = center.bounds.center.z;
                         if (go.GetComponent<Renderer>().bounds.Contains(camera_pos))
                         {
-                            Debug.Log("player in " + go.GetComponent<BackgroundTile>().posVisible);
+                            //Debug.Log("player in " + go.GetComponent<BackgroundTile>().posVisible);
                             new_center = go;
                             ReAllocateCenter(new_center);
                         }
@@ -167,28 +167,28 @@ public class ScrollingScript : MonoBehaviour {
 
         foreach(GameObject clone in clones)
         {
-            Debug.Log("===========");
+            //Debug.Log("===========");
             BackgroundTile bt = clone.GetComponent<BackgroundTile>();
             if (bt.Pos.ShouldMove(new_center_pos))
             {
                 // Modify clone position to oppoiste
-                Debug.Log("old position " + bt.Pos.ToString());
+                //Debug.Log("old position " + bt.Pos.ToString());
                 Position pos = bt.Pos;
                 pos.ShiftOpposite();
                 bt.Pos = pos;
                 TeleportTo(clone, pos);
-                Debug.Log("new position " + bt.Pos.ToString());
+                //Debug.Log("new position " + bt.Pos.ToString());
                 //Destroy(clone);
             }
             else
             {
                 // just modifiy position kept if tile not moved
                 // can just mmodifiy the reference, don't need to use SetPos
-                Debug.Log("old position "+bt.Pos.ToString());
+                //Debug.Log("old position "+bt.Pos.ToString());
                 Position pos = bt.Pos;
                 pos.ShiftString( Position.OppositeDir( new_center_pos.GetDir()));
                 bt.Pos = pos;
-                Debug.Log("new position " + bt.Pos.ToString());
+                //Debug.Log("new position " + bt.Pos.ToString());
             }
             
         }

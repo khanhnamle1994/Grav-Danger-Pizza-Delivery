@@ -7,7 +7,6 @@ using UnityEditor.SceneManagement;
 public class Goal : MonoBehaviour {
 
 	public Text winText;
-    public Text ingredientText;
 	public string whatToSay;
     public string sceneName="";
 
@@ -15,30 +14,44 @@ public class Goal : MonoBehaviour {
 
     public string[] requiredIngredients;
     public int[] requiredIngredientsAmounts;
-    public bool isCheckIngredients = false;
+    [SerializeField]
+    private bool isCheckIngredients;
+    public bool IsCheckIngredients
+    {
+        get
+        {
+            return isCheckIngredients;
+        }
+        set
+        {
+            isCheckIngredients = value;
+        }
+    }
 
     private PizzaInventory pi;
 
-	// Use this for initialization
-	void Start () {
+    public delegate void OnPlayerWin();
+    public event OnPlayerWin onPlayerWin = delegate { };
+
+    void Awake()
+    {
+        if (pi == null)
+        {
+            pi = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaInventory>();
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
         if (winText==null)
         {
-            GameObject go = GameObject.Find("WinText");
+            GameObject go = GameObject.Find("CenterText");
             if (go == null)
                 throw new UnityException("WinText not found for goal");
             winText = go.GetComponent<Text>();
         }
 		winText.text = "";
-
-        if(pi==null)
-        {
-            pi = GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaInventory>();
-        }
-
-        if(ingredientText==null && isCheckIngredients)
-        {
-            ingredientText = GameObject.Find("IngredientsText").GetComponent<Text>();
-        }
+        
     }
 	
 	// Update is called once per frame
@@ -60,12 +73,19 @@ public class Goal : MonoBehaviour {
 
     void OnTriggerEnter2D (Collider2D other)
 	{
-		if(other.tag == "Player" && IngredientsChecker())
+		if(other.tag == "Player")
 		{
-			winText.text = whatToSay;
+            if (IsCheckIngredients)
+            {
+                // if ingrediendts not fulfilled
+                // then not win
+                if (!IngredientsChecker())
+                    return;
+            }
+
 			PlayYay ();
-            StartCoroutine("DelayedLoadNextLevel");
-		}
+            onPlayerWin();
+        }
 	}
 
 	void PlayYay()
@@ -77,8 +97,6 @@ public class Goal : MonoBehaviour {
 
     bool IngredientsChecker()
     {
-        if (!isCheckIngredients)
-            return true;
 
         for (int i =0; i <requiredIngredients.Length;i++ )
         {
@@ -91,19 +109,24 @@ public class Goal : MonoBehaviour {
         return true;
     }
 
+    public List<string> RemainingIngredients()
+    {
+        List<string> requirements = new List<string>();
+        for (int i = 0; i < requiredIngredients.Length; i++)
+        {
+            // if player doesn't have ingredient amount for item
+            // then return false
+            if (!IngredientCheck(i))
+                requirements.Add(requiredIngredients[i]);
+        }
+        return requirements;
+    }
+
     // Check if player has requiredIngredient Amount for ingredient Index
     // return false otherwise
     bool IngredientCheck(int ingredientIndex)
     {
         string ingredientName = requiredIngredients[ingredientIndex];
         return pi.GetItemAmount(ingredientName) >= requiredIngredientsAmounts[ingredientIndex];
-    }
-
-    IEnumerator DelayedLoadNextLevel()
-    {
-        if (sceneName == "")
-            throw new UnityException("sceneName not set. will load nothing");
-        yield return new WaitForSeconds(5);
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PizzaSceneManager>().LoadNextScene();
     }
 }

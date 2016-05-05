@@ -5,13 +5,22 @@ using System.Collections;
 public class TextController : MonoBehaviour {
     Text inventoryText;
     Text ingredientText;
+    Text centerText;
 
-    public delegate string FetchText();
+
+    public delegate string OnCenterText();
+    public event OnCenterText onCenterText;
+
+    public string deathString = "You died";
+
 
     // Use this for initialization
     void Start () {
         inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
         ingredientText = GameObject.Find("IngredientsText").GetComponent<Text>();
+        centerText = GameObject.Find("CenterText").GetComponent<Text>();
+
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         PizzaInventory pi = player.GetComponent<PizzaInventory>();
         Goal goal = GameObject.FindGameObjectWithTag("Finish").GetComponent<Goal>();
@@ -27,8 +36,21 @@ public class TextController : MonoBehaviour {
         };
 
         pi.onInventoryChange += InventorySet;
-        if(goal.isCheckIngredients)
+        if(goal.IsCheckIngredients)
             pi.onInventoryChange += IngredientSet;
+
+        Goal.OnPlayerWin WinSet = () =>
+        {
+            SetTextFor(centerText, goal.whatToSay);
+        };
+
+        goal.onPlayerWin += WinSet;
+
+        PizzaInventory.OnPlayerDeath DeathSet = () =>
+        {
+            SetTextFor(centerText, deathString);
+        };
+        pi.onPlayerDeath += DeathSet;
 
     }
 

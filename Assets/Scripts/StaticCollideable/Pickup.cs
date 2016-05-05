@@ -3,20 +3,15 @@ using System.Collections;
 
 public class Pickup : MonoBehaviour {
 
-	public string itemName;
+    [SerializeField]
+	private string itemName;
+    public string ItemName { get { return itemName; } set {itemName=value; } }
 	public int amount;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public delegate void OnPickUpDeath();
+    public event OnPickUpDeath onPickUpDeath = delegate { };
 
-	void OnTriggerEnter2D (Collider2D other)
+    void OnTriggerEnter2D (Collider2D other)
 	{
 		if (other.tag == "Player")
 		{
@@ -24,4 +19,9 @@ public class Pickup : MonoBehaviour {
 			Destroy (gameObject);
 		}
 	}
+
+    void OnDestroy()
+    {
+        onPickUpDeath();
+    }
 }

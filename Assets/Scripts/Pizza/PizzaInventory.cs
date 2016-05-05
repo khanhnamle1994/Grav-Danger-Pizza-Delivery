@@ -19,42 +19,48 @@ public class PizzaInventory : MonoBehaviour {
     public delegate void OnInventoryChange();
     public event OnInventoryChange onInventoryChange = delegate { };
 
-    // Use this for initialization
-    void Start () {
-        if (inventoryText == null)
-            inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
+
+    public delegate void OnPlayerDeath();
+    public event OnPlayerDeath onPlayerDeath = delegate { };
+
+    void Awake()
+    {
         inventory = new Dictionary<string, int>();
         inventory.Add(healthItem, startingHealthAmount);
         foreach (string s in itemNames)
         {
             inventory.Add(s, 0);
         }
-		for (int i = 0; i < itemAmounts.Length; i++) {
-			inventory [itemNames[i]] = itemAmounts [i];
-		}
+        for (int i = 0; i < itemAmounts.Length; i++)
+        {
+            inventory[itemNames[i]] = itemAmounts[i];
+        }
+
+        OnInventoryChange DeathCheck = () =>
+        {
+            if (IsDeathCheck())
+            {
+                onPlayerDeath();
+            }
+        };
+
+        onInventoryChange += DeathCheck;
+    }
+
+
+    // Use this for initialization
+    void Start () {
+        if (inventoryText == null)
+            inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
+        
         ForcedInventoryTextEventCall();
     }
 
-    public void ForcedInventoryTextEventCall()
+    private void ForcedInventoryTextEventCall()
     {
         onInventoryChange();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (inventory[healthItem]<0)
-        {
-            GetComponent<PizzaSceneManager>().ResetLevel();
-        }
-    }
-
-
-
-
-    void FixedUpdate () {
-        ///inventoryText.text = BuildText();
-	}
+    
 
     public string BuildText()
     {
@@ -65,6 +71,10 @@ public class PizzaInventory : MonoBehaviour {
         return text;
     }
 
+    private bool IsDeathCheck()
+    {
+        return inventory[healthItem] == 0;
+    }
 
     public void Increment(string s)
     {
