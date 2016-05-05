@@ -42,7 +42,7 @@ public class PizzaSceneManager : MonoBehaviour {
         return ()=>{ ResetLevel(); };
     }
 
-    private void ResetLevel()
+    public void ResetLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -52,7 +52,7 @@ public class PizzaSceneManager : MonoBehaviour {
         return () =>{ LoadNextScene(); };
     }
 
-    private void LoadNextScene()
+    public void LoadNextScene()
     {
         LoadNextSceneCalled(nextSceneName);
     }

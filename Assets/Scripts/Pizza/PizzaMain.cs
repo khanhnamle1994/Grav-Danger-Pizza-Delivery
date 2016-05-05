@@ -77,9 +77,14 @@ public class PizzaMain : MonoBehaviour {
             }
         }
 
-        if(Input.GetKey(KeyCode.R))
+        if(Input.GetKey(KeyCode.R)&&Input.GetKey(KeyCode.V))
         {
+            psm.ResetLevel();
+        }
 
+        if(Input.GetKey(KeyCode.A)&&Input.GetKey(KeyCode.S)&&Input.GetKey(KeyCode.L))
+        {
+            psm.LoadNextScene();
         }
     }
 
