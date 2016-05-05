@@ -8,7 +8,7 @@ public abstract class Velocitor : BaseAffector {
     {
         Vector2 v = playerRb2d.velocity;
 
-        rb2d.AddForce(v.normalized * rb2d.mass * velocityMultipler,ForceMode2D.Force);
-
+		other.GetComponent<Rigidbody2D>().AddForce(v.normalized * velocityMultipler,ForceMode2D.Force);
+		Debug.Log (velocityMultipler);
     }
 }
