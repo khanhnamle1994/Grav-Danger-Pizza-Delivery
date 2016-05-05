@@ -7,7 +7,7 @@ public class PizzaMain : MonoBehaviour {
 
     bool helpOn = false;
     string helpString = "Particle Help\nLeftClick or RightClick creates:\nAttractor    | Repulsor\nFastor        | Slowor    (Hold L.Shift)\n        \nLeftClick also erases Particles\nHold mouse button to create larger Particles";
-    string helpStringNone = "Press 'h' for help";
+    string helpStringNone = "";
 
 
 
