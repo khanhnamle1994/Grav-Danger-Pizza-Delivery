@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ScreenRoll : MonoBehaviour {
 
-    public GameObject theCamera;
+    public GameObject background;
     public float speed;
     public string level; 
 
@@ -15,7 +15,8 @@ public class ScreenRoll : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        theCamera.transform.Translate(Vector3.down * Time.deltaTime * speed);
+		Camera.main.transform.Translate(Vector3.down * Time.deltaTime * speed);
+		background.transform.Translate(Vector3.down * Time.deltaTime * speed * .75f);
         StartCoroutine(waitfor());
 
 	
@@ -23,7 +24,7 @@ public class ScreenRoll : MonoBehaviour {
 
     IEnumerator waitfor()
     {
-        yield return new WaitForSeconds(60);
+        yield return new WaitForSeconds(64);
         Application.LoadLevel(level);
     }
 }
