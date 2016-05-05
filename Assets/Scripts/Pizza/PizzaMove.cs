@@ -21,7 +21,10 @@ public class PizzaMove : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		if (helpOn)
+			tc.SetHelpText(helpString);
+		else
+			tc.SetHelpText(helpStringNone);
 	}
 	
 	// Update is called once per frame
