@@ -54,13 +54,20 @@ public class PizzaInventory : MonoBehaviour {
             inventoryText = GameObject.Find("InventoryText").GetComponent<Text>();
         
         ForcedInventoryTextEventCall();
+
+		StartCoroutine (DelayText ());
     }
 
     private void ForcedInventoryTextEventCall()
     {
         onInventoryChange();
     }
-    
+
+	IEnumerator DelayText()
+	{
+		yield return new WaitForSeconds (1f);
+		ForcedInventoryTextEventCall ();
+	}
 
     public string BuildText()
     {
